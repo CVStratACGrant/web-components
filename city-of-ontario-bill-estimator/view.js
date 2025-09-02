@@ -37,7 +37,7 @@ const dedicatedFireLineChargeElements = document.querySelectorAll('.dedicated-fi
 const scoutingServiceIncluded = document.querySelector('[name="scouting-service-included"]');
 const scoutingServiceChargeElements = document.querySelectorAll('.scouting-service-charge-elements');
 
-const ieuaChargeElements = document.querySelector('.ieua-charge-elements')
+const sewerBaseAndIeuaChargeElements = document.querySelector('.sewer-base-and-ieua-charge-elements')
 
 const billTable = document.querySelector('table');
 const billTableBody = document.querySelector('tbody');
@@ -302,7 +302,7 @@ billEstimatorTypeMenu.addEventListener('change', (event) => {
       
       handleFormFields();
       showElement([billEstimatorForm, billTable], [true, true], customerGroupValue && customerClassValue);
-      showElement(ieuaChargeElements, true, customerClassValue !== 'Single-Family');
+      // showElement(sewerBaseAndIeuaChargeElements, true, customerClassValue !== 'Single-Family');
       showElement(document.querySelectorAll('[data-action]'), true, customerClassValue !== 'Single-Family');
       modifyDynamicFormFieldText();
     } catch (error) {

@@ -170,6 +170,10 @@ I assumed some bins may have multiple pickups, but I'm still ending up several d
 So far, it looks like base rates match expected values when assuming weekly or multiple pickups, but discrepancies of $25–$150 remain unexplained — especially for organics and recycling.
 
 ## Testing
+```html
+<button id="test-functions-button">Test</button>
+```
+
 ```js
 /**
  ********************* TESTING *********************

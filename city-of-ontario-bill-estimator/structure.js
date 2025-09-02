@@ -106,7 +106,7 @@ export const billEstimatorContainer = `
                         </fieldset>
                     </div>
                     
-                    <div class="column ieua-charge-elements">
+                    <div class="column sewer-base-and-ieua-charge-elements">
                         <fieldset class="scroll-wrapper">
                             <legend>Sewer Base and IEUA Charges</legend>
                             <template id="template-sewer-base-and-ieua-charge-elements">
