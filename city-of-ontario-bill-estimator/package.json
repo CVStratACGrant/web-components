@@ -1,0 +1,10 @@
+{
+  "dependencies": {
+    "jest": "^30.1.3",
+    "puppeteer": "^24.18.0"
+  },
+  "scripts": {
+    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js"
+  },
+  "type": "module"
+}
