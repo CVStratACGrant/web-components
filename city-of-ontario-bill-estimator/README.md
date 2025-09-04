@@ -169,7 +169,15 @@ I assumed some bins may have multiple pickups, but I'm still ending up several d
 
 So far, it looks like base rates match expected values when assuming weekly or multiple pickups, but discrepancies of $25–$150 remain unexplained — especially for organics and recycling.
 
-## Testing
+
+## New Testing Framework
+```shell
+cd tests
+npm test main.test.js
+```
+
+
+## Old Testing Framework
 ```html
 <button id="test-functions-button">Test</button>
 ```
@@ -180,46 +188,6 @@ So far, it looks like base rates match expected values when assuming weekly or m
 */
  
 const testCases = [
-  {
-    expected: 2994.62,
-    customerGroup: 'Non-Residential',
-    customerClass: 'Commercial',
-    formData: {
-      'billing-cycle-start': '2025-03-18',
-      'billing-cycle-end': '2025-04-16',
-      'current-ccf-usages': '150',
-      'sewer-base-charges': '211.50',
-      'meter-types-and-sizes': 'Water|2"',
-      'inland-empire-utilities-agency-charges': '387.47',
-      'stormwater-base-charges': '2.66',
-      'waste-bin-types-and-sizes': ['Organics|2 YD', 'Recycling|3 YD', 'Refuse|4 YD', 'Refuse|4 YD'],
-      'weekly-pickups': ['2', '2', '1', '6'],
-      'scouting-service-included': 'false',
-      'scouting-service-charge': '',
-      'dedicated-fire-line-included': 'false',
-      'dedicated-fire-line-sizes': '',
-    }
-  },
-  {
-    expected: 1143.09,
-    customerGroup: 'Non-Residential',
-    customerClass: 'Industrial',
-    formData: {
-      'billing-cycle-start': '2025-03-18',
-      'billing-cycle-end': '2025-04-16',
-      'current-ccf-usages': '15',
-      'sewer-base-charges': '21.15',
-      'meter-types-and-sizes': 'Water|3"',
-      'inland-empire-utilities-agency-charges': '27.11',
-      'stormwater-base-charges': '7.30',
-      'waste-bin-types-and-sizes': ['Recycling|1.5 YD', 'Organics|32 Gal', 'Refuse|4 YD', 'Refuse|4 YD'],
-      'weekly-pickups': ['1', '1', '1', '2'],
-      'scouting-service-included': 'false',
-      'scouting-service-charge': '',
-      'dedicated-fire-line-included': 'false',
-      'dedicated-fire-line-sizes': '',
-    }
-  },
   { /** CUSTOM: NOT DERIVED FROM A SAMPLE BILL */
     expected: 1201.13,
     customerGroup: 'Non-Residential',
@@ -241,46 +209,6 @@ const testCases = [
       'dedicated-fire-line-sizes': ['Private Fire Line|2"', 'Private Fire Line|6"'],
     }
   },
-  {
-    expected: 1034.95,
-    customerGroup: 'Residential',
-    customerClass: 'Multi-Family',
-    formData: {
-      'billing-cycle-start': '2025-03-17',
-      'billing-cycle-end': '2025-04-16',
-      'current-ccf-usages': ['43', '22'],
-      'sewer-base-charges': ['68.40', '68.40'],
-      'meter-types-and-sizes': ['Water|1"', 'Water|1"'],
-      'inland-empire-utilities-agency-charges': ['104.10', '104.10'],
-      'stormwater-base-charges': ['2.36', '1.81'],
-      'waste-bin-types-and-sizes': ['Recycling|1.5 YD', 'Organics|32 Gal', 'Refuse|4 YD'],
-      'weekly-pickups': ['1', '1', '1'],
-      'scouting-service-included': 'true',
-      'scouting-service-charge': '41.13',
-      'dedicated-fire-line-included': 'false',
-      'dedicated-fire-line-sizes': '',
-    }
-  },
-  {
-    expected: 161.35,
-    customerGroup: 'Residential',
-    customerClass: 'Single-Family',
-    formData: {
-      'billing-cycle-start': '2025-03-17',
-      'billing-cycle-end': '2025-04-16',
-      'current-ccf-usages': '16',
-      'sewer-base-charges': '14.18',
-      'meter-types-and-sizes': 'Water|5/8"',
-      'inland-empire-utilities-agency-charges': '24.79',
-      'stormwater-base-charges': '1',
-      'waste-bin-types-and-sizes': 'Refuse|96 Gal',
-      'weekly-pickups': '1',
-      'scouting-service-included': 'false',
-      'scouting-service-charge': '',
-      'dedicated-fire-line-included': 'false',
-      'dedicated-fire-line-sizes': '',
-    }
-  }
 ];
 
 async function runAllSimulations() {
