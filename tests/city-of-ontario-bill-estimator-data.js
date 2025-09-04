@@ -24,7 +24,7 @@ const nonSingleFamilyResidentialFieldLegend = {
   'scouting-service-charge': fieldTypes.conditionalText,
   'dedicated-fire-line-included': fieldTypes.option,
   'dedicated-fire-line-sizes': fieldTypes.conditionalMultiOption,
-};
+}
 
 const singleFamilyResidentialFieldLegend = {
   'bill-estimator-type-menu': fieldTypes.option,
@@ -41,7 +41,7 @@ const singleFamilyResidentialFieldLegend = {
   'scouting-service-charge': fieldTypes.conditionalText,
   'dedicated-fire-line-included': fieldTypes.option,
   'dedicated-fire-line-sizes': fieldTypes.conditionalOption,
-};
+}
 
 const triggerSelectors = {
   'dedicated-fire-line-sizes': '[data-field-name="dedicated-fire-line-sizes"][data-action="append"]',
@@ -163,7 +163,7 @@ const nonSingleFamilyResidentialData = [
       { name: 'dedicated-fire-line-included', value: 'false' },
     ],
   },
-];
+]
 
 const singleFamilyResidentialData = [
   {
@@ -183,7 +183,7 @@ const singleFamilyResidentialData = [
       { name: 'dedicated-fire-line-included', value: 'false' },
     ],
   },
-];
+]
 
 module.exports = {
   fieldTypes,
@@ -192,4 +192,4 @@ module.exports = {
   triggerSelectors,
   nonSingleFamilyResidentialData,
   singleFamilyResidentialData,
-};
+}

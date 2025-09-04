@@ -5,14 +5,14 @@ const {
   singleFamilyResidentialFieldLegend,
   nonSingleFamilyResidentialData,
   nonSingleFamilyResidentialFieldLegend,
-} = require('./data.js');
+} = require('./city-of-ontario-bill-estimator-data.js');
 
 describe('Integration Tests', () => {
     let browser, page;
 
     beforeAll(async () => {
         browser = await puppeteer.launch({
-            headless: false,
+            headless: true,
             defaultViewport: null,
             timeout: 20000,
         });
