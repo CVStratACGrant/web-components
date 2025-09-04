@@ -1,11 +1,11 @@
-import puppeteer from 'puppeteer';
-import { 
-  fieldTypes, 
-  singleFamilyResidentialData, 
-  singleFamilyResidentialFieldLegend, 
-  nonSingleFamilyResidentialData, 
-  nonSingleFamilyResidentialFieldLegend 
-} from './data.js';
+const puppeteer = require('puppeteer');
+const {
+  fieldTypes,
+  singleFamilyResidentialData,
+  singleFamilyResidentialFieldLegend,
+  nonSingleFamilyResidentialData,
+  nonSingleFamilyResidentialFieldLegend,
+} = require('./data.js');
 
 describe('Integration Tests', () => {
     let browser, page;
@@ -20,7 +20,7 @@ describe('Integration Tests', () => {
     });
 
     afterAll(async () => {
-        await new Promise((resolve) => setTimeout(resolve, 30000)); // uncomment to see the test window for longer
+        // await new Promise((resolve) => setTimeout(resolve, 30000)); // uncomment to see the test window for longer
         await browser.close();
     });
 
@@ -30,15 +30,18 @@ describe('Integration Tests', () => {
     }
 
     const fillFields = async (page, formData, legend) => {
+        const visited = new Set();
+
         for (const { name, value, triggerSelector } of formData) {
             const fieldType = legend[name];
             const fieldSelector = `[name="${name}"]`;
             const fieldHandle = await page.$(fieldSelector);
 
-            if (triggerSelector && Array.isArray(value)) {
+            if (triggerSelector && !visited.has(triggerSelector) && Array.isArray(value)) {
                 for (let i = 1; i < value.length; i++) {
                     await page.click(triggerSelector);
                 }
+                visited.add(triggerSelector);
             }
 
             switch (fieldType) {
@@ -106,11 +109,11 @@ describe('Integration Tests', () => {
         });
     }
 
-    // for (const singleFamilyResidentialDataBlock of singleFamilyResidentialData) {
-    //     test('Single-Family Residential', async () => {
-    //         await page.goto('http://127.0.0.1:5500/city-of-ontario-bill-estimator/index.html');
-    //         const result = await fillForm(page, singleFamilyResidentialDataBlock.formData, singleFamilyResidentialFieldLegend);
-    //         expect(result).toBe(singleFamilyResidentialDataBlock.expected);
-    //     });
-    // }
+    for (const singleFamilyResidentialDataBlock of singleFamilyResidentialData) {
+        test('Single-Family Residential', async () => {
+            await page.goto('http://127.0.0.1:5500/city-of-ontario-bill-estimator/index.html');
+            const result = await fillForm(page, singleFamilyResidentialDataBlock.formData, singleFamilyResidentialFieldLegend);
+            expect(result).toBe(singleFamilyResidentialDataBlock.expected);
+        });
+    }
 });

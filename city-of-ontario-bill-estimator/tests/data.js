@@ -1,4 +1,4 @@
-export const fieldTypes = {
+const fieldTypes = {
     conditionalMultiOption: 'conditionalMultiOption',
     conditionalOption: 'conditionalOption',
     conditionalText: 'conditionalText',
@@ -9,7 +9,7 @@ export const fieldTypes = {
     text: 'text',
 }
 
-export const nonSingleFamilyResidentialFieldLegend = {
+const nonSingleFamilyResidentialFieldLegend = {
   'bill-estimator-type-menu': fieldTypes.option,
   'billing-cycle-start': fieldTypes.date,
   'billing-cycle-end': fieldTypes.date,
@@ -26,7 +26,7 @@ export const nonSingleFamilyResidentialFieldLegend = {
   'dedicated-fire-line-sizes': fieldTypes.conditionalMultiOption,
 };
 
-export const singleFamilyResidentialFieldLegend = {
+const singleFamilyResidentialFieldLegend = {
   'bill-estimator-type-menu': fieldTypes.option,
   'billing-cycle-start': fieldTypes.date,
   'billing-cycle-end': fieldTypes.date,
@@ -43,91 +43,119 @@ export const singleFamilyResidentialFieldLegend = {
   'dedicated-fire-line-sizes': fieldTypes.conditionalOption,
 };
 
-export const nonSingleFamilyResidentialData = [
-  // {
-  //   expected: 2994.62,
-  //   formData: [
-  //     { name: 'bill-estimator-type-menu', value: 'Commercial' },
-  //     { name: 'billing-cycle-start', value: '2025-03-18' },
-  //     { name: 'billing-cycle-end', value: '2025-04-16' },
-  //     { name: 'current-ccf-usages', value: ['150'] },
-  //     { name: 'sewer-base-charges', value: ['211.50'] },
-  //     { name: 'meter-types-and-sizes', value: ['Water|2"'] },
-  //     { name: 'inland-empire-utilities-agency-charges', value: ['387.47'] },
-  //     { name: 'stormwater-base-charges', value: ['2.66'] },
-  //     {
-  //       name: 'waste-bin-types-and-sizes',
-  //       value: ['Organics|2 YD', 'Recycling|3 YD', 'Refuse|4 YD', 'Refuse|4 YD'],
-  //       triggerSelector: '[data-field-name="waste-bin-types-and-sizes"][data-action="append"]',
-  //     },
-  //     { name: 'weekly-pickups', value: ['2', '2', '1', '6'] },
-  //     { name: 'scouting-service-included', value: 'false' },
-  //     { name: 'dedicated-fire-line-included', value: 'false' },
-  //   ],
-  // },
-  // {
-  //   expected: 1143.09,
-  //   formData: [
-  //     { name: 'bill-estimator-type-menu', value: 'Industrial' },
-  //     { name: 'billing-cycle-start', value: '2025-03-18' },
-  //     { name: 'billing-cycle-end', value: '2025-04-16' },
-  //     { name: 'current-ccf-usages', value: ['15'] },
-  //     { name: 'sewer-base-charges', value: ['21.15'] },
-  //     { name: 'meter-types-and-sizes', value: ['Water|3"'] },
-  //     { name: 'inland-empire-utilities-agency-charges', value: ['27.11'] },
-  //     { name: 'stormwater-base-charges', value: ['7.30'] },
-  //     {
-  //       name: 'waste-bin-types-and-sizes',
-  //       value: ['Recycling|1.5 YD', 'Organics|32 Gal', 'Refuse|4 YD', 'Refuse|4 YD'],
-  //       triggerSelector: '[data-field-name="waste-bin-types-and-sizes"][data-action="append"]',
-  //     },
-  //     { name: 'weekly-pickups', value: ['1', '1', '1', '2'] },
-  //     { name: 'scouting-service-included', value: 'false' },
-  //     { name: 'dedicated-fire-line-included', value: 'false' },
-  //   ],
-  // },
-  // {
-  //   /** CUSTOM: NOT DERIVED FROM A SAMPLE BILL */
-  //   expected: 1201.13,
-  //   formData: [
-  //     { name: 'bill-estimator-type-menu', value: 'Industrial' },
-  //     { name: 'billing-cycle-start', value: '2025-03-18' },
-  //     { name: 'billing-cycle-end', value: '2025-04-16' },
-  //     { name: 'current-ccf-usages', value: ['15'] },
-  //     { name: 'sewer-base-charges', value: ['21.15'] },
-  //     { name: 'meter-types-and-sizes', value: ['Water|3"'] },
-  //     { name: 'inland-empire-utilities-agency-charges', value: ['27.11'] },
-  //     { name: 'stormwater-base-charges', value: ['7.30'] },
-  //     {
-  //       name: 'waste-bin-types-and-sizes',
-  //       value: ['Recycling|1.5 YD', 'Organics|32 Gal', 'Refuse|4 YD', 'Refuse|4 YD'],
-  //       triggerSelector: '[data-field-name="waste-bin-types-and-sizes"][data-action="append"]',
-  //     },
-  //     { name: 'weekly-pickups', value: ['1', '1', '1', '2'] },
-  //     { name: 'scouting-service-included', value: 'false' },
-  //     { name: 'dedicated-fire-line-included', value: 'true' },
-  //     {
-  //       name: 'dedicated-fire-line-sizes',
-  //       value: ['Private Fire Line|2"', 'Private Fire Line|6"'],
-  //       triggerSelector: '[data-field-name="dedicated-fire-line-sizes"][data-action="append"]',
-  //     },
-  //   ],
-  // },
+const triggerSelectors = {
+  'dedicated-fire-line-sizes': '[data-field-name="dedicated-fire-line-sizes"][data-action="append"]',
+  'meter-types-and-sizes': '[data-field-name="meter-types-and-sizes"][data-action="append"]',
+  'sewer-base-charges': '[data-field-name="sewer-base-charges"][data-action="append"]',
+  'stormwater-base-charges': '[data-field-name="stormwater-base-charges"][data-action="append"]',
+  'waste-bin-types-and-sizes': '[data-field-name="waste-bin-types-and-sizes"][data-action="append"]',
+}
+
+const nonSingleFamilyResidentialData = [
+  {
+    expected: 2994.62,
+    formData: [
+      { name: 'bill-estimator-type-menu', value: 'Commercial' },
+      { name: 'billing-cycle-start', value: '2025-03-18' },
+      { name: 'billing-cycle-end', value: '2025-04-16' },
+      { name: 'current-ccf-usages', value: ['150'] },
+      { name: 'sewer-base-charges', value: ['211.50'] },
+      { name: 'meter-types-and-sizes', value: ['Water|2"'] },
+      { name: 'inland-empire-utilities-agency-charges', value: ['387.47'] },
+      { name: 'stormwater-base-charges', value: ['2.66'] },
+      {
+        name: 'waste-bin-types-and-sizes',
+        value: ['Organics|2 YD', 'Recycling|3 YD', 'Refuse|4 YD', 'Refuse|4 YD'],
+        triggerSelector: triggerSelectors['waste-bin-types-and-sizes'],
+      },
+      { name: 'weekly-pickups', value: ['2', '2', '1', '6'] },
+      { name: 'scouting-service-included', value: 'false' },
+      { name: 'dedicated-fire-line-included', value: 'false' },
+    ],
+  },
+  {
+    expected: 1143.09,
+    formData: [
+      { name: 'bill-estimator-type-menu', value: 'Industrial' },
+      { name: 'billing-cycle-start', value: '2025-03-18' },
+      { name: 'billing-cycle-end', value: '2025-04-16' },
+      { name: 'current-ccf-usages', value: ['15'] },
+      { name: 'sewer-base-charges', value: ['21.15'] },
+      { name: 'meter-types-and-sizes', value: ['Water|3"'] },
+      { name: 'inland-empire-utilities-agency-charges', value: ['27.11'] },
+      { name: 'stormwater-base-charges', value: ['7.30'] },
+      {
+        name: 'waste-bin-types-and-sizes',
+        value: ['Recycling|1.5 YD', 'Organics|32 Gal', 'Refuse|4 YD', 'Refuse|4 YD'],
+        triggerSelector: triggerSelectors['waste-bin-types-and-sizes'],
+      },
+      { name: 'weekly-pickups', value: ['1', '1', '1', '2'] },
+      { name: 'scouting-service-included', value: 'false' },
+      { name: 'dedicated-fire-line-included', value: 'false' },
+    ],
+  },
+  {
+    /** CUSTOM: NOT DERIVED FROM A SAMPLE BILL */
+    expected: 1201.13,
+    formData: [
+      { name: 'bill-estimator-type-menu', value: 'Industrial' },
+      { name: 'billing-cycle-start', value: '2025-03-18' },
+      { name: 'billing-cycle-end', value: '2025-04-16' },
+      { name: 'current-ccf-usages', value: ['15'] },
+      { name: 'sewer-base-charges', value: ['21.15'] },
+      { name: 'meter-types-and-sizes', value: ['Water|3"'] },
+      { name: 'inland-empire-utilities-agency-charges', value: ['27.11'] },
+      { name: 'stormwater-base-charges', value: ['7.30'] },
+      {
+        name: 'waste-bin-types-and-sizes',
+        value: ['Recycling|1.5 YD', 'Organics|32 Gal', 'Refuse|4 YD', 'Refuse|4 YD'],
+        triggerSelector: triggerSelectors['waste-bin-types-and-sizes'],
+      },
+      { name: 'weekly-pickups', value: ['1', '1', '1', '2'] },
+      { name: 'scouting-service-included', value: 'false' },
+      { name: 'dedicated-fire-line-included', value: 'true' },
+      {
+        name: 'dedicated-fire-line-sizes',
+        value: ['Private Fire Line|2"', 'Private Fire Line|6"'],
+        triggerSelector: triggerSelectors['dedicated-fire-line-sizes'],
+      },
+    ],
+  },
   {
     expected: 1034.95,
     formData: [
       { name: 'bill-estimator-type-menu', value: 'Multi-Family' },
       { name: 'billing-cycle-start', value: '2025-03-17' },
       { name: 'billing-cycle-end', value: '2025-04-16' },
-      { name: 'current-ccf-usages', value: ['43', '22'] },
-      { name: 'sewer-base-charges', value: ['68.40', '68.40'] },
-      { name: 'meter-types-and-sizes', value: ['Water|1"', 'Water|1"'] },
-      { name: 'inland-empire-utilities-agency-charges', value: ['104.10', '104.10'] },
-      { name: 'stormwater-base-charges', value: ['2.36', '1.81'] },
+      { 
+        name: 'current-ccf-usages',
+        value: ['43', '22'],
+        triggerSelector: triggerSelectors['meter-types-and-sizes'],
+      },
+      { 
+        name: 'sewer-base-charges',
+        value: ['68.40', '68.40'],
+        triggerSelector: triggerSelectors['sewer-base-charges'],
+      },
+      { 
+        name: 'meter-types-and-sizes',
+        value: ['Water|1"', 'Water|1"'],
+        triggerSelector: triggerSelectors['meter-types-and-sizes'],
+      },
+      { 
+        name: 'inland-empire-utilities-agency-charges',
+        value: ['104.10', '104.10'],
+        triggerSelector: triggerSelectors['sewer-base-charges'],
+      },
+      { 
+        name: 'stormwater-base-charges',
+        value: ['2.36', '1.81'],
+        triggerSelector: triggerSelectors['stormwater-base-charges'],
+      },
       {
         name: 'waste-bin-types-and-sizes',
         value: ['Recycling|1.5 YD', 'Organics|32 Gal', 'Refuse|4 YD'],
-        triggerSelector: '[data-field-name="waste-bin-types-and-sizes"][data-action="append"]',
+        triggerSelector: triggerSelectors['waste-bin-types-and-sizes'],
       },
       { name: 'weekly-pickups', value: ['1', '1', '1'] },
       { name: 'scouting-service-included', value: 'true' },
@@ -137,7 +165,7 @@ export const nonSingleFamilyResidentialData = [
   },
 ];
 
-export const singleFamilyResidentialData = [
+const singleFamilyResidentialData = [
   {
     expected: 161.35,
     formData: [
@@ -156,3 +184,12 @@ export const singleFamilyResidentialData = [
     ],
   },
 ];
+
+module.exports = {
+  fieldTypes,
+  nonSingleFamilyResidentialFieldLegend,
+  singleFamilyResidentialFieldLegend,
+  triggerSelectors,
+  nonSingleFamilyResidentialData,
+  singleFamilyResidentialData,
+};
