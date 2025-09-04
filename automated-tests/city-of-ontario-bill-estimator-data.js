@@ -1,13 +1,4 @@
-const fieldTypes = {
-    conditionalMultiOption: 'conditionalMultiOption',
-    conditionalOption: 'conditionalOption',
-    conditionalText: 'conditionalText',
-    date: 'date',
-    multiOption: 'multiOption',
-    multiText:'multiText',
-    option: 'option',
-    text: 'text',
-}
+const { fieldTypes } = require('./utils/form-utils.js');
 
 const nonSingleFamilyResidentialFieldLegend = {
   'bill-estimator-type-menu': fieldTypes.option,
