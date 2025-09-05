@@ -1,142 +1,133 @@
-const fieldTypes = require('./utils/form-utils.js');
+const { fieldTypes } = require('./utils/form-utils.js');
 
-// legends
-const mantecaResidentialFieldLegend = {
-  'current-billing-units-water-usage': fieldTypes.text,
-  'current-billing-cycle-days': fieldTypes.text,
-  'household-size': fieldTypes.text,
-  'landscape-area-square-feet': fieldTypes.text,
-  'evapotranspiration': fieldTypes.text,
-  'irrigation-efficiency': fieldTypes.text,
-  'meter-size': fieldTypes.option,
-  'dedicated-fire-line-included': fieldTypes.option,
+const mantecaFieldLegend = {
+  'bill-estimator-type-menu': fieldTypes.option,
+  'consumption-input': fieldTypes.text,
+  'number-of-living-units-input': fieldTypes.text,
+  'biological-oxygen-demand-input': fieldTypes.text,
+  'nitrogen-input': fieldTypes.text,
+  'total-suspended-solids-input': fieldTypes.text,
+  'volume-input': fieldTypes.text,
 };
 
-const mantecaNonResidentialFieldLegend = {
-  'current-billing-units-water-usage': fieldTypes.text,
-  'current-billing-cycle-days': fieldTypes.text,
-  'meter-size': fieldTypes.option,
-  'dedicated-fire-line-included': fieldTypes.option,
-};
-
+// ⬇️ Non-residential
 const mantecaNonResidentialData = [
   { // Car Wash
     expected: 783.66,
     formData: [
-      { name: 'current-billing-units-water-usage', value: '22900' },
-      { name: 'current-billing-cycle-days', value: '34' },
-      { name: 'dedicated-fire-line-included', value: 'false' },
+      { name: 'bill-estimator-type-menu', value: 'Car Wash' },
+      { name: 'consumption-input', value: '2290' },
     ],
   },
-  { // Commercial / Retail (Rite Aid)
+  { // Commercial / Retail (Rite Aid) → use Retail
     expected: 676.51,
     formData: [
-      { name: 'current-billing-units-water-usage', value: '5470' },
-      { name: 'current-billing-cycle-days', value: '35' },
-      { name: 'dedicated-fire-line-included', value: 'false' },
+      { name: 'bill-estimator-type-menu', value: 'Retail' },
+      { name: 'consumption-input', value: '547' },
     ],
   },
   { // Hospital
     expected: 5118.70,
     formData: [
-      { name: 'current-billing-units-water-usage', value: '61700' },
-      { name: 'current-billing-cycle-days', value: '34' },
-      { name: 'dedicated-fire-line-included', value: 'false' },
+      { name: 'bill-estimator-type-menu', value: 'Hospital' },
+      { name: 'consumption-input', value: '6170' },
     ],
   },
-  { // Hotel / Motel (credit balance)
+  { // Hotel / Motel (credit balance) → assume With Kitchen (high-strength)
     expected: -474.50,
     formData: [
-      { name: 'current-billing-units-water-usage', value: '47000' }, // large irrigation meter usage present
-      { name: 'current-billing-cycle-days', value: '31' },
-      { name: 'dedicated-fire-line-included', value: 'false' },
+      { name: 'bill-estimator-type-menu', value: 'Hotel (With Kitchen)' },
+      { name: 'consumption-input', value: '4700' },
     ],
   },
   { // Laundromat
     expected: 460.10,
     formData: [
-      { name: 'current-billing-units-water-usage', value: '5090' },
-      { name: 'current-billing-cycle-days', value: '29' },
-      { name: 'dedicated-fire-line-included', value: 'false' },
+      { name: 'bill-estimator-type-menu', value: 'Laundromat' },
+      { name: 'consumption-input', value: '509' },
     ],
   },
   { // Market
     expected: 222.93,
     formData: [
-      { name: 'current-billing-units-water-usage', value: '120' },
-      { name: 'current-billing-cycle-days', value: '35' },
-      { name: 'dedicated-fire-line-included', value: 'false' },
+      { name: 'bill-estimator-type-menu', value: 'Market' },
+      { name: 'consumption-input', value: '12' },
     ],
   },
-  { // Office / Light Industrial
+  { // Office / Light Industrial → pick Office
     expected: 88.15,
     formData: [
-      { name: 'current-billing-units-water-usage', value: '260' },
-      { name: 'current-billing-cycle-days', value: '31' },
-      { name: 'dedicated-fire-line-included', value: 'false' },
+      { name: 'bill-estimator-type-menu', value: 'Office' },
+      { name: 'consumption-input', value: '26' },
     ],
   },
   { // Restaurant
     expected: 737.91,
     formData: [
-      { name: 'current-billing-units-water-usage', value: '600' },
-      { name: 'current-billing-cycle-days', value: '33' },
-      { name: 'dedicated-fire-line-included', value: 'false' },
+      { name: 'bill-estimator-type-menu', value: 'Restaurant' },
+      { name: 'consumption-input', value: '60' },
     ],
   },
-  { // Rooming houses – no water meter on bill; treat usage as 0, 30-day cycle from dates
+  { // Rooming houses → treat as MF Residential (LU-based, 2024)
     expected: 264.70,
     formData: [
-      { name: 'current-billing-units-water-usage', value: '0' },
-      { name: 'current-billing-cycle-days', value: '30' },
-      { name: 'dedicated-fire-line-included', value: 'false' },
+      { name: 'bill-estimator-type-menu', value: 'Residential (Two or More Living Units)' },
+      { name: 'consumption-input', value: '0' },
+      { name: 'number-of-living-units-input', value: '6.11' }, // 264.70 / 43.30
     ],
   },
-  { // School – two meters; use total usage (3,470 + 4,450 = 7,920) and a 35-day cycle
+  { // School
     expected: 1822.11,
     formData: [
-      { name: 'current-billing-units-water-usage', value: '7920' },
-      { name: 'current-billing-cycle-days', value: '35' },
-      { name: 'dedicated-fire-line-included', value: 'false' },
+      { name: 'bill-estimator-type-menu', value: 'School' },
+      { name: 'consumption-input', value: '792' },
     ],
   },
   { // Service stations
     expected: 112.52,
     formData: [
-      { name: 'current-billing-units-water-usage', value: '1940' },
-      { name: 'current-billing-cycle-days', value: '29' },
-      { name: 'dedicated-fire-line-included', value: 'false' },
+      { name: 'bill-estimator-type-menu', value: 'Service Station' },
+      { name: 'consumption-input', value: '194' },
     ],
   },
-  { // Trailer park
+  { // Trailer park → Trailer Park (LU-based, 2024)
     expected: 2621.25,
     formData: [
-      { name: 'current-billing-units-water-usage', value: '14250' },
-      { name: 'current-billing-cycle-days', value: '37' },
-      { name: 'dedicated-fire-line-included', value: 'false' },
+      { name: 'bill-estimator-type-menu', value: 'Trailer Park' },
+      { name: 'consumption-input', value: '1425' },
+      { name: 'number-of-living-units-input', value: '72.72' }, // 2621.25 / 36.57
     ],
   },
 ];
 
+// ⬇️ Residential (2024 Single-Family Residential; fix usage field)
 const mantecaResidentialData = [
-  { // Residential & equivalents
+  {
     expected: 294.00,
     formData: [
-      { name: 'current-billing-units-water-usage', value: '800' },
-      { name: 'current-billing-cycle-days', value: '30' },
-      { name: 'household-size', value: '3' },
-      { name: 'landscape-area-square-feet', value: '0' },
-      { name: 'evapotranspiration', value: '0' },
-      { name: 'irrigation-efficiency', value: '0.7' },
-      { name: 'dedicated-fire-line-included', value: 'false' },
+      { name: 'bill-estimator-type-menu', value: 'Residential (Single Family Home)' },
+      { name: 'consumption-input', value: '800' },
+    ],
+  },
+];
+
+// ⬇️ Industrial (2024 industrial rates assumed)
+const mantecaIndustrialData = [
+  {
+    expected: 2803.08, // your provided expected
+    formData: [
+      { name: 'bill-estimator-type-menu', value: 'Industrial' },
+      { name: 'biological-oxygen-demand-input', value: '120' },
+      { name: 'nitrogen-input', value: '44' },
+      { name: 'total-suspended-solids-input', value: '130' },
+      { name: 'volume-input', value: '1.25' },
     ],
   },
 ];
 
 module.exports = {
-  mantecaResidentialFieldLegend,
-  mantecaNonResidentialFieldLegend,
-  mantecaTriggerSelectors,
+  mantecaFieldLegend,
   mantecaNonResidentialData,
   mantecaResidentialData,
+  mantecaIndustrialData,
 };

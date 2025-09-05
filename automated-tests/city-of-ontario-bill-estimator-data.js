@@ -1,6 +1,6 @@
 const { fieldTypes } = require('./utils/form-utils.js');
 
-const nonSingleFamilyResidentialFieldLegend = {
+const ontarioNonSingleFamilyResidentialFieldLegend = {
   'bill-estimator-type-menu': fieldTypes.option,
   'billing-cycle-start': fieldTypes.date,
   'billing-cycle-end': fieldTypes.date,
@@ -17,7 +17,7 @@ const nonSingleFamilyResidentialFieldLegend = {
   'dedicated-fire-line-sizes': fieldTypes.conditionalMultiOption,
 }
 
-const singleFamilyResidentialFieldLegend = {
+const ontarioSingleFamilyResidentialFieldLegend = {
   'bill-estimator-type-menu': fieldTypes.option,
   'billing-cycle-start': fieldTypes.date,
   'billing-cycle-end': fieldTypes.date,
@@ -42,7 +42,7 @@ const triggerSelectors = {
   'waste-bin-types-and-sizes': '[data-field-name="waste-bin-types-and-sizes"][data-action="append"]',
 }
 
-const nonSingleFamilyResidentialData = [
+const ontarioNonSingleFamilyResidentialData = [
   {
     expected: 2994.62,
     formData: [
@@ -156,7 +156,7 @@ const nonSingleFamilyResidentialData = [
   },
 ]
 
-const singleFamilyResidentialData = [
+const ontarioSingleFamilyResidentialData = [
   {
     expected: 161.35,
     formData: [
@@ -177,10 +177,8 @@ const singleFamilyResidentialData = [
 ]
 
 module.exports = {
-  fieldTypes,
-  nonSingleFamilyResidentialFieldLegend,
-  singleFamilyResidentialFieldLegend,
-  triggerSelectors,
-  nonSingleFamilyResidentialData,
-  singleFamilyResidentialData,
+  ontarioNonSingleFamilyResidentialFieldLegend,
+  ontarioSingleFamilyResidentialFieldLegend,
+  ontarioNonSingleFamilyResidentialData,
+  ontarioSingleFamilyResidentialData,
 }

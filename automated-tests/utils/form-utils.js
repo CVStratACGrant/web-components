@@ -20,7 +20,7 @@ const fillFields = async (page, formData, legend) => {
     for (const { name, value, triggerSelector } of formData) {
         const fieldType = legend[name];
         const fieldSelector = `[name="${name}"]`;
-        const fieldHandle = await page.$(fieldSelector);
+        const fieldHandle = await page.waitForSelector(fieldSelector, { visible: true });
 
         if (triggerSelector && !visited.has(triggerSelector) && Array.isArray(value)) {
             for (let i = 1; i < value.length; i++) {
