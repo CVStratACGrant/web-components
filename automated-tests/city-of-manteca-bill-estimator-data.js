@@ -84,6 +84,38 @@ const mantecaNonResidentialData = [
       { name: 'dedicated-fire-line-included', value: 'false' },
     ],
   },
+  { // Rooming houses – no water meter on bill; treat usage as 0, 30-day cycle from dates
+    expected: 264.70,
+    formData: [
+      { name: 'current-billing-units-water-usage', value: '0' },
+      { name: 'current-billing-cycle-days', value: '30' },
+      { name: 'dedicated-fire-line-included', value: 'false' },
+    ],
+  },
+  { // School – two meters; use total usage (3,470 + 4,450 = 7,920) and a 35-day cycle
+    expected: 1822.11,
+    formData: [
+      { name: 'current-billing-units-water-usage', value: '7920' },
+      { name: 'current-billing-cycle-days', value: '35' },
+      { name: 'dedicated-fire-line-included', value: 'false' },
+    ],
+  },
+  { // Service stations
+    expected: 112.52,
+    formData: [
+      { name: 'current-billing-units-water-usage', value: '1940' },
+      { name: 'current-billing-cycle-days', value: '29' },
+      { name: 'dedicated-fire-line-included', value: 'false' },
+    ],
+  },
+  { // Trailer park
+    expected: 2621.25,
+    formData: [
+      { name: 'current-billing-units-water-usage', value: '14250' },
+      { name: 'current-billing-cycle-days', value: '37' },
+      { name: 'dedicated-fire-line-included', value: 'false' },
+    ],
+  },
 ];
 
 const mantecaResidentialData = [
