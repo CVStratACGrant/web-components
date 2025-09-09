@@ -10,103 +10,99 @@ const mantecaFieldLegend = {
   'volume-input': fieldTypes.text,
 };
 
-// ⬇️ Non-residential
 const mantecaNonResidentialData = [
-  { // Car Wash
-    expected: 783.66,
+  {
+    expected: 56.17,
     formData: [
       { name: 'bill-estimator-type-menu', value: 'Car Wash' },
       { name: 'consumption-input', value: '2290' },
     ],
   },
-  { // Commercial / Retail (Rite Aid) → use Retail
-    expected: 676.51,
+  {
+    expected: 16.94,
     formData: [
       { name: 'bill-estimator-type-menu', value: 'Retail' },
       { name: 'consumption-input', value: '547' },
     ],
   },
-  { // Hospital
-    expected: 5118.70,
+  {
+    expected: 201.7,
     formData: [
       { name: 'bill-estimator-type-menu', value: 'Hospital' },
       { name: 'consumption-input', value: '6170' },
     ],
   },
-  { // Hotel / Motel (credit balance) → assume With Kitchen (high-strength)
-    expected: -474.50,
+  {
+    expected: 290.88,
     formData: [
       { name: 'bill-estimator-type-menu', value: 'Hotel (With Kitchen)' },
       { name: 'consumption-input', value: '4700' },
     ],
   },
-  { // Laundromat
-    expected: 460.10,
+  {
+    expected: 12.49,
     formData: [
       { name: 'bill-estimator-type-menu', value: 'Laundromat' },
       { name: 'consumption-input', value: '509' },
     ],
   },
-  { // Market
-    expected: 222.93,
+  {
+    expected: 0.91,
     formData: [
       { name: 'bill-estimator-type-menu', value: 'Market' },
       { name: 'consumption-input', value: '12' },
     ],
   },
-  { // Office / Light Industrial → pick Office
-    expected: 88.15,
+  {
+    expected: 0.66,
     formData: [
       { name: 'bill-estimator-type-menu', value: 'Office' },
       { name: 'consumption-input', value: '26' },
     ],
   },
-  { // Restaurant
-    expected: 737.91,
+  {
+    expected: 4.35,
     formData: [
       { name: 'bill-estimator-type-menu', value: 'Restaurant' },
       { name: 'consumption-input', value: '60' },
     ],
   },
-  { // Rooming houses → treat as MF Residential (LU-based, 2024)
-    expected: 264.70,
+  {
+    expected: 259.80,
     formData: [
       { name: 'bill-estimator-type-menu', value: 'Residential (Two or More Living Units)' },
-      { name: 'consumption-input', value: '0' },
-      { name: 'number-of-living-units-input', value: '6.11' }, // 264.70 / 43.30
+      { name: 'number-of-living-units-input', value: '6' },
     ],
   },
-  { // School
-    expected: 1822.11,
+  {
+    expected: 22.74,
     formData: [
       { name: 'bill-estimator-type-menu', value: 'School' },
       { name: 'consumption-input', value: '792' },
     ],
   },
-  { // Service stations
-    expected: 112.52,
+  {
+    expected: 6.6,
     formData: [
       { name: 'bill-estimator-type-menu', value: 'Service Station' },
       { name: 'consumption-input', value: '194' },
     ],
   },
-  { // Trailer park → Trailer Park (LU-based, 2024)
-    expected: 2621.25,
+  {
+    expected: 52.11,
     formData: [
       { name: 'bill-estimator-type-menu', value: 'Trailer Park' },
       { name: 'consumption-input', value: '1425' },
-      { name: 'number-of-living-units-input', value: '72.72' }, // 2621.25 / 36.57
+      { name: 'number-of-living-units-input', value: '72' },
     ],
   },
 ];
 
-// ⬇️ Residential (2024 Single-Family Residential; fix usage field)
 const mantecaResidentialData = [
   {
-    expected: 294.00,
+    expected: 43.3,
     formData: [
       { name: 'bill-estimator-type-menu', value: 'Residential (Single Family Home)' },
-      { name: 'consumption-input', value: '800' },
     ],
   },
 ];

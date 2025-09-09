@@ -69,7 +69,7 @@ const fillFields = async (page, formData, legend) => {
     }
 }
 
-const fillForm = async (page, formData, legend) => {
+const fillForm = async (page, formData, legend, resultSelector) => {
     const normalFields = [];
     const conditionalFields = [];
 
@@ -83,7 +83,7 @@ const fillForm = async (page, formData, legend) => {
     await fillFields(page, conditionalFields, legend);
     await page.click('[type="submit"]');
 
-    return await page.$eval('table > tbody > tr > td', (element) => +element.innerText.replace(/[$,]/g, ''));
+    return await page.$eval(resultSelector, (element) => +element.innerText.replace(/[$,]/g, ''));
 }
 
 module.exports = {
