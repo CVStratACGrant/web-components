@@ -57,7 +57,7 @@ export const billEstimatorContainer = `
                         <label for="meter-size">Select Meter Size:</label>
                         <select id="meter-size" name="meter-size" required>
                             <option value=''>Please select a meter size.</option>
-                            <option value=''>I'm not sure.</option>
+                            <option value='not-sure'>I'm not sure.</option>
                             <option value='5/8"'>5/8"</option>
                             <option value='3/4"'>3/4"</option>
                             <option value='1"'>1"</option>
@@ -100,7 +100,7 @@ export const billEstimatorContainer = `
                         <label for="backflow-device-testing">Backflow Device Testing Meter Size</label>
                         <select id="backflow-device-testing" name="backflow-device-testing" required>
                             <option value="">Please select an option.</option>
-                            <option value="">None</option>
+                            <option value="None">None</option>
                             <option value='Backflow Device Testing - 5/8", 3/4" , 1"'>Backflow Device Testing - 5/8", 3/4" , 1"</option>
                             <option value='Backflow Device Testing - 1 1/2", and 2"'>Backflow Device Testing - 1 1/2", and 2"</option>
                             <option value='Backflow Device Testing - 3" and 4"'>Backflow Device Testing - 3" and 4"</option>

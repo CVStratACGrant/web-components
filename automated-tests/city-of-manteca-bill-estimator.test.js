@@ -15,7 +15,7 @@ describe('City of Manteca Bill Estimator Integration Tests', () => {
     });
 
     afterAll(async () => {
-        await teardownBrowser(browser, true);
+        await teardownBrowser(browser);
     });
 
     for (const mantecaDataBlock of mantecaData) {

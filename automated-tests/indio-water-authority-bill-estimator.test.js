@@ -15,11 +15,12 @@ describe('Indio Water Authority Bill Estimator Integration Tests', () => {
     });
 
     afterAll(async () => {
-        await teardownBrowser(browser, true);
+        await teardownBrowser(browser);
     });
 
     for (const indioDataBlock of indioData) {
         test('Non-Residential', async () => {
+            page.on('console', (msg) => console.log('BROWSER LOG:', msg.text()));
             await page.goto(`${serverUrl}/indio-water-authority-bill-estimator/index.html`);
             const result = await fillForm(page, indioDataBlock.formData, indioFieldLegend, resultSelector);
             expect(result).toBe(indioDataBlock.expected);
