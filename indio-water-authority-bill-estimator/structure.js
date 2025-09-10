@@ -92,9 +92,9 @@ export const billEstimatorContainer = `
                             <option value="false">No</option>
                         </select>
                         
-                        <div id="dedicated-fire-line-charge-container">
-                            <label for="dedicated-fire-line-charge" style="display: none;">Dedicated Fire Line Charge (Dollars)</label>
-                            <input type="number" id="dedicated-fire-line-charge" name="dedicated-fire-line-charge" placeholder="Ex. 40" step="0.01" required style="display: none;">
+                        <div id="dedicated-fire-line-charge-container" style="display: none;">
+                            <label for="dedicated-fire-line-charge">Dedicated Fire Line Charge (Dollars)</label>
+                            <input type="number" id="dedicated-fire-line-charge" name="dedicated-fire-line-charge" placeholder="Ex. 40" step="0.01" required>
                         </div>
                         
                         <label for="backflow-device-testing">Backflow Device Testing Meter Size</label>

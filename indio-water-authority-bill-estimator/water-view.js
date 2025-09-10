@@ -246,8 +246,7 @@ meterSizeSelectMenu.addEventListener('change', (event) => {
 dedicatedFireLineIncluded.addEventListener('change', (event) => {
     try {
         const dedicatedFireLineIncluded = event?.target.value === 'true';
-        if (dedicatedFireLineIncluded) showElement([dedicatedFireLineChargeLabel, dedicatedFireLineCharge], [true, true]);
-        else showElement([dedicatedFireLineChargeLabel, dedicatedFireLineCharge], [false, false]);
+        showElement(dedicatedFireLineChargeContainer, true, dedicatedFireLineIncluded);
     } catch (error) {
         console.error(error);
     }
