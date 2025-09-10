@@ -72,16 +72,50 @@ const setFormData = (event) => {
     userFormData = typedFormData;
 }
 
-const showContainer = (containers = [], booleans = [], parentContainer = billEstimatorFormFieldset) => {
-    containers.forEach((container, index) => {
-        if (booleans[index]) {
-            container.setAttribute('style', 'display: "";');
-            parentContainer.appendChild(container);
-        } else if (parentContainer.contains(container)) {
-            container.setAttribute('style', 'display: none;');
-            parentContainer.removeChild(container);
-        }
-    });
+const normalizeElements = (input) => {
+  if (!input) return [];
+  if (input instanceof HTMLElement) return [input];
+  if (input instanceof NodeList || input instanceof HTMLCollection) return Array.from(input);
+  if (Array.isArray(input)) return input.filter((element) => element instanceof HTMLElement);
+  return [];
+}
+
+/**
+ * Toggles visibility of one or more HTML elements.
+ *
+ * @param {HTMLCollection | HTMLElement} elements - Element(s) to show or hide.
+ * @param {boolean[] | boolean} booleans - Array controlling visibility per element, or a single boolean applied to all.
+ * @param {boolean} condition - Combined with each boolean to determine visibility.
+ *
+ * When passed more than one element to remove, elements are removed from the document flow but remain in the DOM to preserve references. 
+ * Due to this, be cautious with form elements (e.g. `required` inputs), as hidden fields may still trigger validation errors. It's safer
+ * to group them in one conditionally rendered parent element than separate non-adjacent elements. One could also run this function individually
+ * on them which offers flexibility and avoids the error.
+ */
+const showElement = (elements, booleans, condition = true) => {
+  const elementsArray = normalizeElements(elements);
+  const booleansArray = Array.isArray(booleans) ? booleans : Array(elementsArray.length).fill(booleans);
+  const removeNotHide = elementsArray.length === 1;
+
+  elementsArray.forEach((element, index) => {
+    const shouldShow = booleansArray[index] && condition;
+    
+    if (!element._originalParent) {
+      element._originalParent = element.parentElement;
+      element._placeholder = document.createComment('placeholder');
+      element.parentElement.insertBefore(element._placeholder, element);
+    };
+
+    const parent = element._originalParent;
+    const elementIsInsideParent = parent.contains(element);
+    const placeholderIsInsideParent = parent.contains(element._placeholder);
+    
+    element.style.display = shouldShow ? '' : 'none';
+    
+    if (shouldShow && !elementIsInsideParent && placeholderIsInsideParent) parent.insertBefore(element, element._placeholder);
+    else if (shouldShow && !elementIsInsideParent && !placeholderIsInsideParent) parent.appendChild(element, element._placeholder);
+    else if (!shouldShow && elementIsInsideParent && removeNotHide) parent.removeChild(element);
+  });
 }
 
 const clearContainer = (container) => {
@@ -131,8 +165,8 @@ const populateChargeBreakdowns = () => {
 
 customerClassMenu.addEventListener('change', (event) => {
     const customerClass = event?.target.value;
-    if (!['', 'Single-Family'].includes(customerClass)) showContainer([multiFamilyResidentialInputsContainer], [true], residentialInputsContainer);
-    else showContainer([multiFamilyResidentialInputsContainer], [false], residentialInputsContainer);
+    const isSingleFamily = customerClass === 'Single-Family';
+    showElement(multiFamilyResidentialInputsContainer, true, !isSingleFamily);
 })
 
 fieldFinderMenu.addEventListener('change', (event) => {
@@ -143,14 +177,14 @@ fieldFinderMenu.addEventListener('change', (event) => {
   const selectMenuText = selectMenuOption.text;
 
   if (selectMenuValue) {
-    showContainer([fieldFinderImageCaption, fieldFinderImage], [true, true], fieldFinderFigure);
+    showElement([fieldFinderImageCaption, fieldFinderImage], [true, true]);
     fieldFinderImage.src = selectMenuValue;
     fieldFinderImage.alt = selectMenuText;
     fieldFinderImageCaption.innerText = selectMenuCaption || selectMenuText;
   }
 
   else {
-    showContainer([fieldFinderImageCaption, fieldFinderImage], [false, false], fieldFinderFigure);
+    showElement([fieldFinderImageCaption, fieldFinderImage], [false, false]);
   }
 });
 
@@ -160,11 +194,11 @@ billEstimatorTypeMenu.addEventListener('change', (event) => {
 
         customerData.customerClassGroup = customerClassGroup;
 
-        if (customerData.customerClassGroup === 'Residential') showContainer([residentialInputs], [true], residentialInputsContainer);
-        else showContainer([residentialInputs], [false], residentialInputsContainer);
+        if (customerData.customerClassGroup === 'Residential') showElement([residentialInputs], [true]);
+        else showElement([residentialInputs], [false]);
 
-        if (customerClassGroup) showContainer([billEstimatorForm, billTable], [true, true], billEstimatorFormAndBillTable);
-        else showContainer([billEstimatorForm, billTable], [false, false], billEstimatorFormAndBillTable);
+        if (customerClassGroup) showElement([billEstimatorForm, billTable], [true, true]);
+        else showElement([billEstimatorForm, billTable], [false, false]);
     } catch (error) {
         console.error(error);
     }
@@ -194,8 +228,16 @@ billEstimatorForm.addEventListener('submit', (event) => {
 meterSizeSelectMenu.addEventListener('change', (event) => {
   try {
     const meterSize = event?.target.value;
-    if (meterSize) showContainer([baseChargeLabel, baseChargeSmallText, baseChargeInput], [false, false, false], baseChargeContainer);
-    else showContainer([baseChargeLabel, baseChargeSmallText, baseChargeInput], [true, true, true], baseChargeContainer);
+    if (meterSize) {
+        showElement(baseChargeLabel, false);
+        showElement(baseChargeSmallText, false);
+        showElement(baseChargeInput, false);
+    }
+    else {
+        showElement(baseChargeLabel, true);
+        showElement(baseChargeSmallText, true);
+        showElement(baseChargeInput, true);
+    }
   } catch (error) {
     console.error(error);
   }
@@ -204,8 +246,8 @@ meterSizeSelectMenu.addEventListener('change', (event) => {
 dedicatedFireLineIncluded.addEventListener('change', (event) => {
     try {
         const dedicatedFireLineIncluded = event?.target.value === 'true';
-        if (dedicatedFireLineIncluded) showContainer([dedicatedFireLineChargeLabel, dedicatedFireLineCharge], [true, true], dedicatedFireLineChargeContainer);
-        else showContainer([dedicatedFireLineChargeLabel, dedicatedFireLineCharge], [false, false], dedicatedFireLineChargeContainer);
+        if (dedicatedFireLineIncluded) showElement([dedicatedFireLineChargeLabel, dedicatedFireLineCharge], [true, true]);
+        else showElement([dedicatedFireLineChargeLabel, dedicatedFireLineCharge], [false, false]);
     } catch (error) {
         console.error(error);
     }

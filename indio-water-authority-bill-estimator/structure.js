@@ -46,10 +46,11 @@ export const billEstimatorContainer = `
                                 
                                 <label for="current-billing-cycle-days">Current Billing Cycle Length (Days)</label>
                                 <input type="number" id="current-billing-cycle-days" name="current-billing-cycle-days"  min="20" max="40" placeholder="Ex. 30" required>
-                            </div>
-                            <div id="multi-family-residential-inputs" style="display: none;">
-                                <label for="dwelling-units">Dwelling Units</label>
-                                <input type="number" id="dwelling-units" name="dwelling-units" min="1" placeholder="Ex. 30" required>
+                                
+                                <div id="multi-family-residential-inputs" style="display: none;">
+                                    <label for="dwelling-units">Dwelling Units</label>
+                                    <input type="number" id="dwelling-units" name="dwelling-units" min="1" placeholder="Ex. 30" required>
+                                </div>
                             </div>
                         </div>
 
@@ -115,8 +116,8 @@ export const billEstimatorContainer = `
             </form>
 
             <table style="display: none;">
-                <h3 >
-                <caption>Charges</caption>
+                <h3>
+                    <caption>Charges</caption>
                 </h3>
                 <thead>
                     <tr>

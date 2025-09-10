@@ -10,7 +10,7 @@ const mantecaFieldLegend = {
   'volume-input': fieldTypes.text,
 };
 
-const mantecaNonResidentialData = [
+const mantecaData = [
   {
     expected: 56.17,
     formData: [
@@ -96,19 +96,12 @@ const mantecaNonResidentialData = [
       { name: 'number-of-living-units-input', value: '72' },
     ],
   },
-];
-
-const mantecaResidentialData = [
   {
     expected: 43.3,
     formData: [
       { name: 'bill-estimator-type-menu', value: 'Residential (Single Family Home)' },
     ],
   },
-];
-
-// ⬇️ Industrial (2024 industrial rates assumed)
-const mantecaIndustrialData = [
   {
     expected: 2803.08, // your provided expected
     formData: [
@@ -123,7 +116,5 @@ const mantecaIndustrialData = [
 
 module.exports = {
   mantecaFieldLegend,
-  mantecaNonResidentialData,
-  mantecaResidentialData,
-  mantecaIndustrialData,
+  mantecaData,
 };
