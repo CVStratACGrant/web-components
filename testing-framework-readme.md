@@ -13,6 +13,77 @@ npm test main.test.js
 npm test
 ```
 
+### Testing & Configuration Notes
+
+**Rule of thumb:**
+
+* **Live Server Plugin** → prefix with `./`
+* **Puppeteer** → prefix with `/<directory-name>/`
+* **Live** → use the full GitHub Pages URL
+
+#### 1. Errors from mismatched conditions
+
+When a single condition in the test data doesn’t align with the form logic, Puppeteer may hang with no error in the console or logs. For example:
+
+```js
+{
+  expected: 272.39,
+  formData: [
+    { name: 'bill-estimator-type-menu', value: 'Irrigation' },
+    { name: 'backflow-device-testing', value: 'Backflow Device Testing - 1 1/2", and 2"' },
+    { name: 'base-charge', value: '169.26' },
+    { name: 'meter-size', value: 'not-sure' },
+    { name: 'tier-1-billing-units-water-usage', value: '5' },
+    { name: 'current-billing-units-water-usage', value: '25' },
+    { name: 'current-billing-units-total-water-budget', value: '5' },
+    { name: 'dedicated-fire-line-included', value: 'false' }, // set to false
+    { name: 'dedicated-fire-line-charge', value: '60.00' },   // but a value is still provided
+    { name: 'current-billing-cycle-days', value: '30' },
+    { name: 'customer-class', value: '' },
+  ],
+}
+```
+
+In this case, `dedicated-fire-line-included` is `"false"`, which hides the corresponding charge input. However, the test still attempts to fill it, leaving a hidden `required` field with a value. The browser blocks form submission through native validation, but this error is silent — the test just hangs and eventually times out. Always ensure that conditional inputs are only populated when their controlling field is set appropriately.
+
+---
+
+#### 2. Local vs Live script paths
+
+Because the estimator is bundled as a web component, the `<script>` paths need to be changed depending on the environment:
+
+**HTML Example**
+
+```html
+<!-- Local Live Server Plugin -->
+<script src="script.js" type="module"></script>
+
+<!-- Local Puppeteer Testing -->
+<script src="indio-water-authority-bill-estimator/script.js" type="module"></script>
+
+<!-- Live -->
+<script src="https://cvstratacgrant.github.io/web-components/indio-water-authority-bill-estimator/script.js" type="module"></script>
+```
+
+**Component Example (connectedCallback excerpt)**
+
+```js
+async connectedCallback() {
+  try {
+    // Live Server Plugin
+    // await this.loadScript('./water-core.js');
+
+    // Puppeteer
+    // await this.loadScript('indio-water-authority-bill-estimator/water-core.js');
+
+    // Live
+    await this.loadScript('https://cvstratacgrant.github.io/web-components/indio-water-authority-bill-estimator/water-core.js');
+  } catch (error) {
+    console.error('Failed to load scripts:', error);
+  }
+}
+```
+
 
 ## Old Testing Framework for Bill Estimators
 ```html

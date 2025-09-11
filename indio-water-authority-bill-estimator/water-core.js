@@ -97,8 +97,10 @@ const getVariableWaterCharge = (year) => {
 };
 
 const getFixedCharge = (year) => {
-  const meterSize = userFormData.get('meter-size') || deriveMeterSize(userFormData.get('base-charge'));
-  return fixedCharges[year][meterSize] || 0;
+  const meterSize = userFormData.get('meter-size');
+  const notSureOfMeterSize = meterSize === 'not-sure';
+  const fixedCharge = notSureOfMeterSize ? fixedCharges[year][deriveMeterSize(userFormData.get('base-charge'))] : fixedCharges[year][meterSize];
+  return fixedCharge || 0;
 }
 
 const getCharge = (year, type) => {

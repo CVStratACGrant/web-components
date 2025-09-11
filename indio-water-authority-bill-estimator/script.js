@@ -14,10 +14,23 @@ class IndioWaterAuthorityBillEstimator extends HTMLElement {
 
     async connectedCallback() {
         try {
-            await this.loadScript('https://cvstratacgrant.github.io/web-components/indio-water-authority-bill-estimator/water-rates-and-charges.js');
-            await this.loadScript('https://cvstratacgrant.github.io/web-components/indio-water-authority-bill-estimator/water-view.js');
-            await this.loadScript('https://cvstratacgrant.github.io/web-components/indio-water-authority-bill-estimator/water-functions.js');
-            await this.loadScript('https://cvstratacgrant.github.io/web-components/indio-water-authority-bill-estimator/water-core.js');
+            // Live Server Plugin
+            // await this.loadScript('./water-rates-and-charges.js');
+            // await this.loadScript('./water-view.js');
+            // await this.loadScript('./water-functions.js');
+            // await this.loadScript('./water-core.js');
+
+            // Puppeteer
+            await this.loadScript('indio-water-authority-bill-estimator/water-rates-and-charges.js');
+            await this.loadScript('indio-water-authority-bill-estimator/water-view.js');
+            await this.loadScript('indio-water-authority-bill-estimator/water-functions.js');
+            await this.loadScript('indio-water-authority-bill-estimator/water-core.js');
+            
+            // Live
+            // await this.loadScript('https://cvstratacgrant.github.io/web-components/indio-water-authority-bill-estimator/water-rates-and-charges.js');
+            // await this.loadScript('https://cvstratacgrant.github.io/web-components/indio-water-authority-bill-estimator/water-view.js');
+            // await this.loadScript('https://cvstratacgrant.github.io/web-components/indio-water-authority-bill-estimator/water-functions.js');
+            // await this.loadScript('https://cvstratacgrant.github.io/web-components/indio-water-authority-bill-estimator/water-core.js');
         } catch (error) {
             console.error('Failed to load scripts:', error);
         }

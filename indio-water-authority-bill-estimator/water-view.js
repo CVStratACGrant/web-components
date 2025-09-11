@@ -89,8 +89,7 @@ const normalizeElements = (input) => {
  *
  * When passed more than one element to remove, elements are removed from the document flow but remain in the DOM to preserve references. 
  * Due to this, be cautious with form elements (e.g. `required` inputs), as hidden fields may still trigger validation errors. It's safer
- * to group them in one conditionally rendered parent element than separate non-adjacent elements. One could also run this function individually
- * on them which offers flexibility and avoids the error.
+ * to group them in one conditionally rendered parent element than separate non-adjacent elements.
  */
 const showElement = (elements, booleans, condition = true) => {
   const elementsArray = normalizeElements(elements);
@@ -176,29 +175,22 @@ fieldFinderMenu.addEventListener('change', (event) => {
   const selectMenuCaption = selectMenuOption.dataset.caption;
   const selectMenuText = selectMenuOption.text;
 
+  showElement([fieldFinderImageCaption, fieldFinderImage], [true, true], selectMenuValue);
+
   if (selectMenuValue) {
-    showElement([fieldFinderImageCaption, fieldFinderImage], [true, true]);
     fieldFinderImage.src = selectMenuValue;
     fieldFinderImage.alt = selectMenuText;
     fieldFinderImageCaption.innerText = selectMenuCaption || selectMenuText;
-  }
-
-  else {
-    showElement([fieldFinderImageCaption, fieldFinderImage], [false, false]);
   }
 });
 
 billEstimatorTypeMenu.addEventListener('change', (event) => {
     try {
         const customerClassGroup = event?.target.value;
-
         customerData.customerClassGroup = customerClassGroup;
 
-        if (customerData.customerClassGroup === 'Residential') showElement([residentialInputs], [true]);
-        else showElement([residentialInputs], [false]);
-
-        if (customerClassGroup) showElement([billEstimatorForm, billTable], [true, true]);
-        else showElement([billEstimatorForm, billTable], [false, false]);
+        showElement([residentialInputs], [true], customerData.customerClassGroup === 'Residential');
+        showElement([billEstimatorForm, billTable], [true, true], customerClassGroup);
     } catch (error) {
         console.error(error);
     }
@@ -227,17 +219,7 @@ billEstimatorForm.addEventListener('submit', (event) => {
 
 meterSizeSelectMenu.addEventListener('change', (event) => {
   try {
-    const meterSize = event?.target.value;
-    if (meterSize) {
-        showElement(baseChargeLabel, false);
-        showElement(baseChargeSmallText, false);
-        showElement(baseChargeInput, false);
-    }
-    else {
-        showElement(baseChargeLabel, true);
-        showElement(baseChargeSmallText, true);
-        showElement(baseChargeInput, true);
-    }
+    showElement(baseChargeContainer, true, event?.target.value === 'not-sure');
   } catch (error) {
     console.error(error);
   }

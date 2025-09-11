@@ -73,11 +73,12 @@ const fillForm = async (page, formData, legend, resultSelector) => {
     const normalFields = [];
     const conditionalFields = [];
 
+    
     for (const formDataItem of formData) {
         if (!legend[formDataItem.name].includes('conditional')) normalFields.push(formDataItem);
         else conditionalFields.push(formDataItem);  
     }
-
+    
     await fillFields(page, normalFields, legend);
     await new Promise(resolve => setTimeout(resolve, 200));
     await fillFields(page, conditionalFields, legend);

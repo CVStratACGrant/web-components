@@ -32,8 +32,8 @@ const launchBrowser = async (headless = true) => {
   return { browser, page, serverUrl };
 };
 
-const teardownBrowser = async (browser, viewBrowser = false) => {
-  if (viewBrowser) {
+const teardownBrowser = async (browser, hangOnBrowser = false) => {
+  if (hangOnBrowser) {
     await new Promise((resolve) => setTimeout(resolve, 30000));
   }
   await browser.close();

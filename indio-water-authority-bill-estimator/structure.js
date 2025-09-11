@@ -70,10 +70,10 @@ export const billEstimatorContainer = `
                             <option value='10"'>10"</option>
                         </select>
 
-                        <div id="base-charge-container">
-                            <label for="base-charge" style="display: none;">Base Charge (Dollars)</label>
-                            <small id="base-charge-small-text" style="display: none;">Note: For 2024, 5/8" and 3/4", as well as 8" and 10", share identical base charges. The estimator defaults to 3/4" and 8" in these cases, based on prevalence. This will reduce accuracy if one's actual meter size differs.</small>
-                            <input style="display: none;" type="number" id="base-charge" name="base-charge" placeholder="Ex. 21.16" step="0.01" required>
+                        <div id="base-charge-container" style="display: none;>
+                            <label for="base-charge">Base Charge (Dollars)</label>
+                            <small id="base-charge-small-text">Note: For 2024, 5/8" and 3/4", as well as 8" and 10", share identical base charges. The estimator defaults to 3/4" and 8" in these cases, based on prevalence. This will reduce accuracy if one's actual meter size differs.</small>
+                            <input type="number" id="base-charge" name="base-charge" placeholder="Ex. 21.16" step="0.01" required>
                         </div>
                         
                         <label for="tier-1-billing-units-water-usage">Tier 1 Water Usage (CCF)</label>

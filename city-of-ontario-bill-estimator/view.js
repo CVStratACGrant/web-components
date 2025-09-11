@@ -139,8 +139,7 @@ const normalizeElements = (input) => {
  *
  * When passed more than one element to remove, elements are removed from the document flow but remain in the DOM to preserve references. 
  * Due to this, be cautious with form elements (e.g. `required` inputs), as hidden fields may still trigger validation errors. It's safer
- * to group them in one conditionally rendered parent element than separate non-adjacent elements. One could also run this function individually
- * on them which offers flexibility and avoids the error.
+ * to group them in one conditionally rendered parent element than separate non-adjacent elements.
  */
 const showElement = (elements, booleans, condition = true) => {
   const elementsArray = normalizeElements(elements);
