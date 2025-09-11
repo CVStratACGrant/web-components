@@ -19,7 +19,7 @@ describe('City of Manteca Bill Estimator Integration Tests', () => {
     });
 
     for (const mantecaDataBlock of mantecaData) {
-        test('Non-Residential', async () => {
+        test('All Customer Types', async () => {
             await page.goto(`${serverUrl}/city-of-manteca-bill-estimator/index.html`);
             const result = await fillForm(page, mantecaDataBlock.formData, mantecaFieldLegend, resultSelector);
             expect(result).toBe(mantecaDataBlock.expected);

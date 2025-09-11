@@ -69,7 +69,7 @@ const fillFields = async (page, formData, legend) => {
     }
 }
 
-const fillForm = async (page, formData, legend, resultSelector) => {
+const fillForm = async (page, formData, legend, resultSelector, clickSubmit = true) => {
     const normalFields = [];
     const conditionalFields = [];
 
@@ -82,7 +82,7 @@ const fillForm = async (page, formData, legend, resultSelector) => {
     await fillFields(page, normalFields, legend);
     await new Promise(resolve => setTimeout(resolve, 200));
     await fillFields(page, conditionalFields, legend);
-    await page.click('[type="submit"]');
+    if (clickSubmit) await page.click('[type="submit"]');
 
     return await page.$eval(resultSelector, (element) => +element.innerText.replace(/[$,]/g, ''));
 }

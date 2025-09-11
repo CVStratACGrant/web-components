@@ -19,7 +19,7 @@ describe('Indio Water Authority Bill Estimator Integration Tests', () => {
     });
 
     for (const indioDataBlock of indioData) {
-        test('Non-Residential', async () => {
+        test('All Customer Types', async () => {
             await page.goto(`${serverUrl}/indio-water-authority-bill-estimator/index.html`);
             const result = await fillForm(page, indioDataBlock.formData, indioFieldLegend, resultSelector);
             expect(result).toBe(indioDataBlock.expected);

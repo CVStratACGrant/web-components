@@ -4,7 +4,7 @@ export const externalFormWrapper = `
         <div id="internal-form-wrapper">
             <div class="container">
                 <label for="year-select-menu">Year</label>
-                <select name="year-select-menu">
+                <select id="year-select-menu" name="year-select-menu">
                     <option value="2023">Feb 2023 </option>
                     <option selected value="2024">Mar 2024</option>
                     <option value="2025">Jan 2025</option>
@@ -16,7 +16,7 @@ export const externalFormWrapper = `
 
             <div class="container">
                 <label for="meter-size-select-menu">Meter Size</label>
-                <select name="meter-size-select-menu">
+                <select id="meter-size-select-menu" name="meter-size-select-menu">
                     <option disabled selected value="">Select</option>
                     <option value="5/8-inch">5/8-inch (15 mm) [All residential]</option>
                     <option value="1-inch">1-inch (25 mm)</option>
@@ -30,12 +30,12 @@ export const externalFormWrapper = `
 
             <div class="container">
                 <label for="ccf-billed-for-potable-water-input">CCF (Centum Cubic Feet) Billed for Potable Water</label>
-                <input id="ccf-billed-for-potable-water-input" type="number" min="0" value="0">
+                <input id="ccf-billed-for-potable-water-input" name="ccf-billed-for-potable-water-input" type="number" min="0" value="0">
             </div>
 
             <div class="container">
                 <label for="recycled-water-service-select-menu">Recycled Water Service</label>
-                <select name="recycled-water-service-select-menu">
+                <select id="recycled-water-service-select-menu" name="recycled-water-service-select-menu">
                     <option disable selected value="false">Select</option>
                     <option value="true">Yes</option>
                     <option value="false">No</option>
@@ -45,12 +45,12 @@ export const externalFormWrapper = `
             <!-- dynamically shown if condition is met -->
             <div id="ccf-billed-for-recycled-water-container" class="container" style="display: none;">
                 <label for="ccf-billed-for-recycled-water-input">CCF (Centum Cubic Feet) Billed for Recycled Water</label>
-                <input id="ccf-billed-for-recycled-water-input" type="number" min="0" value="0">
+                <input id="ccf-billed-for-recycled-water-input" name="ccf-billed-for-recycled-water-input" type="number" min="0" value="0">
             </div>
 
             <div class="container">
                 <label for="private-fire-connection-select-menu">Private Fire Connection</label>
-                <select name="private-fire-connection-select-menu">
+                <select id="private-fire-connection-select-menu" name="private-fire-connection-select-menu">
                     <option disabled selected value="false">Select</option>
                     <option value="true">Yes</option>
                     <option value="false">No</option>
@@ -60,7 +60,7 @@ export const externalFormWrapper = `
             <!-- dynamically shown if condition is met -->
             <div id="private-fire-connection-size-container" class="container" style="display: none;">
                 <label for="private-fire-connection-size-select-menu">Connection Size</label>
-                <select name="private-fire-connection-size-select-menu">
+                <select id="private-fire-connection-size-select-menu" name="private-fire-connection-size-select-menu">
                     <option disabled selected value="">Select</option>
                     <option value="1.5-inch">1.5-inch (40 mm)</option>
                     <option value="2-inch">2-inch (50 mm)</option>
