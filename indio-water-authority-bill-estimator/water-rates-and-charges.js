@@ -345,7 +345,7 @@ const replenishmentAssessmentCharges = {
 }
 
 const backflowDeviceTestingCharges = {
-    'Backflow Device Testing - 5/8", 3/4" , 1"': 13,
+    'Backflow Device Testing - 5/8", 3/4", 1"': 13,
     'Backflow Device Testing - 1 1/2", and 2"': 13,
     'Backflow Device Testing - 3" and 4"': 19,
     'Backflow Device Testing - 6" and Over': 25,

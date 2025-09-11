@@ -70,7 +70,7 @@ export const billEstimatorContainer = `
                             <option value='10"'>10"</option>
                         </select>
 
-                        <div id="base-charge-container" style="display: none;>
+                        <div id="base-charge-container" style="display: none;">
                             <label for="base-charge">Base Charge (Dollars)</label>
                             <small id="base-charge-small-text">Note: For 2024, 5/8" and 3/4", as well as 8" and 10", share identical base charges. The estimator defaults to 3/4" and 8" in these cases, based on prevalence. This will reduce accuracy if one's actual meter size differs.</small>
                             <input type="number" id="base-charge" name="base-charge" placeholder="Ex. 21.16" step="0.01" required>
@@ -101,7 +101,7 @@ export const billEstimatorContainer = `
                         <select id="backflow-device-testing" name="backflow-device-testing" required>
                             <option value="">Please select an option.</option>
                             <option value="None">None</option>
-                            <option value='Backflow Device Testing - 5/8", 3/4" , 1"'>Backflow Device Testing - 5/8", 3/4" , 1"</option>
+                            <option value='Backflow Device Testing - 5/8", 3/4", 1"'>Backflow Device Testing - 5/8", 3/4", 1"</option>
                             <option value='Backflow Device Testing - 1 1/2", and 2"'>Backflow Device Testing - 1 1/2", and 2"</option>
                             <option value='Backflow Device Testing - 3" and 4"'>Backflow Device Testing - 3" and 4"</option>
                             <option value='Backflow Device Testing - 6" and Over'>Backflow Device Testing - 6" and Over</option>

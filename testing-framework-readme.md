@@ -43,9 +43,72 @@ When a single condition in the test data doesn’t align with the form logic, Pu
   ],
 }
 ```
-
 In this case, `dedicated-fire-line-included` is `"false"`, which hides the corresponding charge input. However, the test still attempts to fill it, leaving a hidden `required` field with a value. The browser blocks form submission through native validation, but this error is silent — the test just hangs and eventually times out. Always ensure that conditional inputs are only populated when their controlling field is set appropriately.
 
+
+```js
+{
+  expected: 189.94,
+  formData: [
+    { name: 'bill-estimator-type-menu', value: 'Irrigation' },
+    { name: 'backflow-device-testing', value: 'Backflow Device Testing - 5/8", 3/4", 1"' },
+    { name: 'base-charge', value: '52.90' },
+    { name: 'meter-size', value: 'not-sure' },
+    { name: 'tier-1-billing-units-water-usage', value: '41' },
+    { name: 'current-billing-units-water-usage', value: '62' },
+    { name: 'current-billing-units-total-water-budget', value: '43' },
+    { name: 'dedicated-fire-line-included', value: 'false' },
+    { name: 'current-billing-cycle-days', value: '28' }, // not a field for this bill estimator type
+  ],
+},
+```
+In this case, the bill estimator type is set to `Irrigation` which does not trigger the `current-billing-cycle-days` field. However, because it is included in the object, the automation attempts to trigger it and consequently the browser silently fails resulting in the form hanging and the test breaking. Fields that would not accessible to automation during a particular workflow should not be included in the object.
+
+
+```js
+const ontarioNonSingleFamilyResidentialFieldLegend = {
+  'bill-estimator-type-menu': fieldTypes.option,
+  'billing-cycle-start': fieldTypes.date,
+  'billing-cycle-end': fieldTypes.date,
+  'current-ccf-usages': fieldTypes.multiText,
+  'sewer-base-charges': fieldTypes.multiText,
+  'meter-types-and-sizes': fieldTypes.multiOption,
+  'inland-empire-utilities-agency-charges': fieldTypes.multiText,
+  'stormwater-base-charges': fieldTypes.multiText,
+  'waste-bin-types-and-sizes': fieldTypes.multiOption,
+  'weekly-pickups': fieldTypes.multiText,
+  'scouting-service-included': fieldTypes.option,
+  'scouting-service-charge': fieldTypes.conditionalText,
+  'dedicated-fire-line-included': fieldTypes.option,
+  'dedicated-fire-line-sizes': fieldTypes.conditionalMultiOption,
+}
+
+const ontarioSingleFamilyResidentialFieldLegend = {
+  'bill-estimator-type-menu': fieldTypes.option,
+  'billing-cycle-start': fieldTypes.date,
+  'billing-cycle-end': fieldTypes.date,
+  'current-ccf-usages': fieldTypes.text,
+  'sewer-base-charges': fieldTypes.text,
+  'meter-types-and-sizes': fieldTypes.option,
+  'inland-empire-utilities-agency-charges': fieldTypes.text,
+  'stormwater-base-charges': fieldTypes.text,
+  'waste-bin-types-and-sizes': fieldTypes.option,
+  'weekly-pickups': fieldTypes.text,
+  'scouting-service-included': fieldTypes.option,
+  'scouting-service-charge': fieldTypes.conditionalText,
+  'dedicated-fire-line-included': fieldTypes.option,
+  'dedicated-fire-line-sizes': fieldTypes.conditionalOption,
+}
+
+const triggerSelectors = {
+  'dedicated-fire-line-sizes': '[data-field-name="dedicated-fire-line-sizes"][data-action="append"]',
+  'meter-types-and-sizes': '[data-field-name="meter-types-and-sizes"][data-action="append"]',
+  'sewer-base-charges': '[data-field-name="sewer-base-charges"][data-action="append"]',
+  'stormwater-base-charges': '[data-field-name="stormwater-base-charges"][data-action="append"]',
+  'waste-bin-types-and-sizes': '[data-field-name="waste-bin-types-and-sizes"][data-action="append"]',
+}
+```
+Legends are used by the automation to treat each field appropriately. Grouped multi-fields (e.g., `multiText`, `multiOption`) have a `triggerSelector` that must be clicked the appropriate amount of times to reveal all the necessary fields of that type. Several multi-field types can map to the same trigger selector which is derived from the form. Conditional fields (e.g., `conditionalOption`,  `conditionalText`) are triggered by another field in the form and are thus all grouped together and run after the unconditional fields. Legends allow for tests to be agnostic of test object field order. So long as the legend is accurate, developers can order the fields however they want.
 ---
 
 #### 2. Local vs Live script paths

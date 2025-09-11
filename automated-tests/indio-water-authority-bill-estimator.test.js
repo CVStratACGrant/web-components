@@ -11,7 +11,7 @@ describe('Indio Water Authority Bill Estimator Integration Tests', () => {
     const resultSelector = 'table > tbody > tr > td';
 
     beforeAll(async () => {
-        ({ browser, page, serverUrl } = await launchBrowser(false));
+        ({ browser, page, serverUrl } = await launchBrowser());
     });
 
     afterAll(async () => {
