@@ -831,7 +831,6 @@ class WaterRateCalculator extends HTMLElement {
                 }
                 
                 .note-text {
-                    color: red;
                 }
             </style>
         `;
