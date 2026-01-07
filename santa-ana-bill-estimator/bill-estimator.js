@@ -615,6 +615,7 @@ class WaterRateCalculator extends HTMLElement {
                 
                 .results-card {
                     border-top: none;
+                    border-radius: 0 0 0.75rem 0.75rem;
                 }
                 
                 .input-summary {
