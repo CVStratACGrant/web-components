@@ -831,7 +831,7 @@ class WaterRateCalculator extends HTMLElement {
                 }
                 
                 .note-text {
-                    color: hotpink;
+                    color: red;
                 }
             </style>
         `;
@@ -844,7 +844,7 @@ class WaterRateCalculator extends HTMLElement {
                     <div class="card">
                         <h2 class="section-header">Input Parameters</h2>
                         <div class="form-section">
-                            <p class="note-text">Note explaining that customer class no longer applies anymore?</p>
+                            <p class="note-text">Please note: under the new proposed rates, charges will no longer vary by customer class and will instead be determined solely by meter size.</p>
 
                             <div id="customerClassContainer" class="customer-class-container">
                                 <div class="form-group">
