@@ -537,7 +537,7 @@ class WaterRateCalculator extends HTMLElement {
                     width: 100%;
                     margin-top: 2rem;
                     padding: 0.75rem 1rem;
-                    background-color: #3B82F6;
+                    background-color: #1f3d7a;
                     color: white;
                     font-weight: 700;
                     border-radius: 0.5rem;
@@ -550,7 +550,7 @@ class WaterRateCalculator extends HTMLElement {
                 }
                 
                 .calculate-button:hover {
-                    background-color: #2563EB;
+                    background-color:rgb(24, 49, 98);
                 }
                 
                 #yearTabs {
