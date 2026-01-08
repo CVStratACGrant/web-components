@@ -407,7 +407,6 @@ class WaterRateCalculator extends HTMLElement {
                 .card {
                     background-color: white;
                     padding: 1.5rem;
-                    border-radius: 0.75rem;
                     box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
                     border: 1px solid #E5E7EB;
                 }
@@ -467,7 +466,6 @@ class WaterRateCalculator extends HTMLElement {
                     width: 100%;
                     padding: 0.75rem;
                     border: 1px solid #D1D5DB;
-                    border-radius: 0.375rem;
                     transition: all 0.2s;
                     font-size: 1rem;
                     background-color: white;
@@ -540,7 +538,6 @@ class WaterRateCalculator extends HTMLElement {
                     background-color: #1f3d7a;
                     color: white;
                     font-weight: 700;
-                    border-radius: 0.5rem;
                     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
                     transition: background-color 0.2s;
                     border: none;
@@ -558,7 +555,6 @@ class WaterRateCalculator extends HTMLElement {
                     flex-direction: column;
                     background-color: white;
                     border-bottom: 1px solid #E5E7EB;
-                    border-radius: 0.75rem 0.75rem 0 0;
                     overflow: hidden;
                 }
                 
@@ -584,7 +580,6 @@ class WaterRateCalculator extends HTMLElement {
                 
                 @media (min-width: 768px) {
                     .tab {
-                        border-radius: 0.75rem 0.75rem 0 0;
                         border: 1px solid #E5E7EB;
                     }
                 }
@@ -615,14 +610,12 @@ class WaterRateCalculator extends HTMLElement {
                 
                 .results-card {
                     border-top: none;
-                    border-radius: 0 0 0.75rem 0.75rem;
                 }
                 
                 .input-summary {
                     margin-bottom: 1.5rem;
                     padding: 1rem;
                     background-color: #F9FAFB;
-                    border-radius: 0.5rem;
                     border: 1px solid #E5E7EB;
                 }
                 
@@ -668,7 +661,6 @@ class WaterRateCalculator extends HTMLElement {
                     margin-bottom: 1.5rem;
                     padding: 0.75rem;
                     background-color: #EFF6FF;
-                    border-radius: 0.5rem;
                     border: 1px solid #BFDBFE;
                 }
                 
@@ -688,7 +680,6 @@ class WaterRateCalculator extends HTMLElement {
                     box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
                     overflow-x: auto;
                     border-bottom: 1px solid #E5E7EB;
-                    border-radius: 0.5rem;
                 }
                 
                 .breakdown-table {
@@ -806,7 +797,6 @@ class WaterRateCalculator extends HTMLElement {
                     align-items: center;
                     background-color: #F9FAFB;
                     padding: 1rem;
-                    border-radius: 0.5rem;
                     border: 2px solid #E5E7EB;
                 }
                 
