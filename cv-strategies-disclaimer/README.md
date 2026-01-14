@@ -2,6 +2,14 @@
 
 ## General Usage
 
+#### What to put in WordPress
+In a Code Block, paste the following:
+```
+<cv-strategies-disclaimer></cv-strategies-disclaimer>
+
+<script type="module" src="https://cvstratacgrant.github.io/web-components/cv-strategies-disclaimer/script.js"></script>
+```
+
 #### Supported Attributes
 ```
 [
