@@ -388,7 +388,7 @@ class WaterRateCalculator extends HTMLElement {
     getStyles() {
         return `
             <style>
-                :host {
+            :host {
                     display: block;
                 }
                 
@@ -822,7 +822,49 @@ class WaterRateCalculator extends HTMLElement {
                 
                 .note-text {
                     font-weight: bold;
+                    margin-bottom: -1rem;
                 }
+
+                ul{
+                margin-left: 20px;
+                margin-bottom: 0px;
+                }
+                .calculator-container {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+/* Desktop only: inputs left, outputs right */
+@media (min-width: 1024px) {
+  .calculator-container {
+    flex-direction: row;
+    align-items: stretch;
+  }
+
+  /* Ensure both columns size nicely and don’t overflow */
+  .calculator-container > div {
+    flex: 1 1 0;
+    min-width: 0;
+  }
+
+  /* Optional: make the left (inputs) column a fixed-ish width */
+  .calculator-container > div:first-child {
+    flex: 0 0 420px; /* adjust or remove if you want 50/50 */
+
+  }
+
+  .calculator-container > div:last-child {
+    flex: 1 1 auto;
+  }
+
+    .calculator-container > div > .card {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+
             </style>
         `;
     }
@@ -832,12 +874,12 @@ class WaterRateCalculator extends HTMLElement {
             <div class="calculator-container">
                 <div>
                     <div class="card">
-                        <h2 class="section-header">Input Parameters</h2>
+                        <h2 class="section-header">Your Service Details</h2>
                         <div class="form-section">
                             <p class="note-text">Please note:</p>
                             <ul>
-                                <li>Under the new proposed rates, charges will no longer vary by customer class and will instead be determined solely by meter size.</li>
-                                <li>Sewer rates are calculated based on meter size, not usage.</li>
+                                <li>Under the new proposed rates, charges will no longer vary by customer class and will instead be <b>determined solely by meter size.</b></li>
+                                <li>Sewer rates are calculated <b>based on meter size</b>, not usage.</li>
                             </ul>
 
                             <div id="customerClassContainer" class="customer-class-container">
@@ -881,7 +923,7 @@ class WaterRateCalculator extends HTMLElement {
                                 <div class="form-group">
                                     <label for="potableUsage" class="form-label">Potable Usage (ccf)</label>
                                     <input type="number" id="potableUsage" value="20" min="0" step="1" class="input-style">
-                                    <p class="input-hint">ccf = 100 cubic feet</p>
+                                    <p class="input-hint">1 ccf = 748 gallons</p>
                                 </div>
 
                                 <div class="form-group">
