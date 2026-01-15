@@ -834,7 +834,11 @@ class WaterRateCalculator extends HTMLElement {
                     <div class="card">
                         <h2 class="section-header">Input Parameters</h2>
                         <div class="form-section">
-                            <p class="note-text">Please note: under the new proposed rates, charges will no longer vary by customer class and will instead be determined solely by meter size.</p>
+                            <p class="note-text">Please note:</p>
+                            <ul>
+                                <li>Under the new proposed rates, charges will no longer vary by customer class and will instead be determined solely by meter size.</li>
+                                <li>Sewer rates are calculated based on meter size, not usage.</li>
+                            </ul>
 
                             <div id="customerClassContainer" class="customer-class-container">
                                 <div class="form-group">
