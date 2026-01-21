@@ -388,484 +388,259 @@ class WaterRateCalculator extends HTMLElement {
     getStyles() {
         return `
             <style>
-            :host {
-                    display: block;
-                }
-                
-                * {
-                    margin: 0;
-                    padding: 0;
-                    box-sizing: border-box;
-                }
-                
-                .calculator-container {
-                    display: flex;
-                    flex-direction: column;
-                    gap: 2rem;
-                }
-                
-                .card {
-                    background-color: white;
-                    padding: 1.5rem;
-                    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-                    border: 1px solid #E5E7EB;
-                }
-                
-                @media (min-width: 640px) {
-                    .card {
-                        padding: 2rem;
-                    }
-                }
-                
-                .section-header {
-                    font-size: 1.25rem;
-                    font-weight: 700;
-                    color: #183e63;
-                    border-bottom: 1px solid #E5E7EB;
-                    padding-bottom: 0.5rem;
-                    margin-bottom: 1rem;
-                }
-                
-                .form-section {
-                    display: flex;
-                    flex-direction: column;
-                    gap: 1.5rem;
-                }
-                
-                .customer-class-container {
-                    display: flex;
-                    flex-direction: column;
-                    gap: 1.5rem;
-                }
-                
-                @media (min-width: 1024px) {
-                    .customer-class-container {
-                        flex-direction: row;
-                        gap: 1rem;
-                    }
-                    
-                    .customer-class-container > div {
-                        flex: 1;
-                    }
-                }
-                
-                .form-group {
-                    display: flex;
-                    flex-direction: column;
-                }
-                
-                .form-label {
-                    display: block;
-                    font-size: 0.875rem;
-                    font-weight: 500;
-                    color: #374151;
-                    margin-bottom: 0.25rem;
-                }
-                
-                .input-style {
-                    width: 100%;
-                    padding: 0.75rem;
-                    border: 1px solid #D1D5DB;
-                    transition: all 0.2s;
-                    font-size: 1rem;
-                    background-color: white;
-                    font-family: inherit;
-                }
-                
-                .input-style:focus {
-                    outline: none;
-                    border-color: #183e63;
-                    box-shadow: 0 0 0 2px rgba(24, 62, 99, 0.2);
-                }
-                
-                .input-hint {
-                    font-size: 0.75rem;
-                    color: #6B7280;
-                    margin-top: 0.25rem;
-                }
-                
-                .usage-grid {
-                    display: flex;
-                    flex-direction: column;
-                    gap: 1.5rem;
-                }
-                
-                @media (min-width: 1024px) {
-                    .usage-grid {
-                        display: grid;
-                        grid-template-columns: repeat(2, 1fr);
-                        gap: 1rem;
-                    }
-                }
-                
-                .additional-charges {
-                    display: flex;
-                    flex-direction: column;
-                    gap: 0.5rem;
-                    padding-top: 0.5rem;
-                    border-top: 1px solid #E5E7EB;
-                }
-                
-                .additional-charges-label {
-                    font-size: 0.875rem;
-                    font-weight: 500;
-                    color: #374151;
-                }
-                
-                .checkbox-group {
-                    display: flex;
-                    align-items: center;
-                    gap: 0.5rem;
-                }
-                
-                .checkbox-input {
-                    height: 1rem;
-                    width: 1rem;
-                    cursor: pointer;
-                }
-                
-                .checkbox-label {
-                    font-size: 0.875rem;
-                    font-weight: 500;
-                    color: #374151;
-                    cursor: pointer;
-                }
-                
-                .calculate-button {
-                    width: 100%;
-                    margin-top: 2rem;
-                    padding: 0.75rem 1rem;
-                    background-color: #1f3d7a;
-                    color: white;
-                    font-weight: 700;
-                    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-                    transition: background-color 0.2s;
-                    border: none;
-                    cursor: pointer;
-                    font-size: 1rem;
-                    font-family: inherit;
-                }
-                
-                .calculate-button:hover {
-                    background-color:rgb(24, 49, 98);
-                }
-                
-                #yearTabs {
-                    display: flex;
-                    flex-direction: column;
-                    background-color: white;
-                    border-bottom: 1px solid #E5E7EB;
-                    overflow: hidden;
-                }
-                
-                @media (min-width: 640px) {
-                    #yearTabs {
-                        flex-direction: row;
-                        justify-content: flex-start;
-                        border: none;
-                    }
-                }
-                
-                .tab {
-                    flex: 1;
-                    text-align: center;
-                    padding: 0.5rem 0.75rem;
-                    cursor: pointer;
-                    transition: background-color 0.2s, color 0.2s;
-                    border-bottom: 3px solid transparent;
-                    font-weight: 600;
-                    color: #6B7280;
-                    border: 0.5px solid #E5E7EB;
-                }
-                
-                @media (min-width: 768px) {
-                    .tab {
-                        border: 1px solid #E5E7EB;
-                    }
-                }
-                
-                .tab:hover {
-                    background-color: #F3F4F6;
-                }
-                
-                .tab.active {
-                    color: #183e63;
-                    border-color: #BFDBFE;
-                    background-color: #EFF6FF;
-                }
-                
-                .tab-year {
-                    font-size: 0.875rem;
-                }
-                
-                .tab-amount {
-                    font-size: 1.125rem;
-                    font-weight: 800;
-                }
-                
-                .tab-period {
-                    font-size: 0.875rem;
-                    font-weight: 400;
-                }
-                
-                .results-card {
-                    border-top: none;
-                }
-                
-                .input-summary {
-                    margin-bottom: 1.5rem;
-                    padding: 1rem;
-                    background-color: #F9FAFB;
-                    border: 1px solid #E5E7EB;
-                }
-                
-                .summary-title {
-                    font-size: 0.875rem;
-                    font-weight: 700;
-                    color: #183e63;
-                }
-                
-                .summary-details {
-                    font-size: 0.75rem;
-                    color: #374151;
-                }
-                
-                .summary-charges {
-                    font-size: 0.75rem;
-                    color: #374151;
-                    margin-top: 0.25rem;
-                }
-                
-                .status-positive {
-                    color: #10B981;
-                    font-weight: 500;
-                }
-                
-                .status-negative {
-                    color: #EF4444;
-                    font-weight: 500;
-                }
-                
-                .detailed-results {
-                    display: flex;
-                    flex-direction: column;
-                    gap: 0.75rem;
-                }
-                
-                .no-results-message {
-                    text-align: center;
-                    color: #6B7280;
-                }
-                
-                .allocation-box {
-                    margin-bottom: 1.5rem;
-                    padding: 0.75rem;
-                    background-color: #EFF6FF;
-                    border: 1px solid #BFDBFE;
-                }
-                
-                .allocation-title {
-                    font-size: 0.875rem;
-                    font-weight: 700;
-                    color: #183e63;
-                }
-                
-                .allocation-details {
-                    font-size: 0.75rem;
-                    color: #374151;
-                    margin-top: 0.25rem;
-                }
-                
-                .table-container {
-                    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
-                    overflow-x: auto;
-                    border-bottom: 1px solid #E5E7EB;
-                }
-                
-                .breakdown-table {
-                    width: 100%;
-                    border-collapse: collapse;
-                    background-color: white;
-                }
-                
-                .table-header {
-                    background-color: #F9FAFB;
-                    display: none;
-                }
-                
-                @media (min-width: 640px) {
-                    .table-header {
-                        display: table-header-group;
-                    }
-                }
-                
-                .table-header th {
-                    padding: 0.75rem 1.5rem;
-                    text-align: left;
-                    font-size: 0.75rem;
-                    font-weight: 500;
-                    color: #6B7280;
-                    text-transform: uppercase;
-                    letter-spacing: 0.05em;
-                }
-                
-                .table-header th:last-child {
-                    text-align: right;
-                }
-                
-                .table-body {
-                    background-color: white;
-                }
-                
-                .table-row {
-                    display: flex;
-                    flex-direction: column;
-                    border-top: 1px solid #E5E7EB;
-                    padding: 1rem;
-                }
-                
-                @media (min-width: 640px) {
-                    .table-row {
-                        display: table-row;
-                        border-top: none;
-                        padding: 0;
-                    }
-                }
-                
-                .table-cell {
-                    display: block;
-                    font-size: 0.875rem;
-                }
-                
-                @media (min-width: 640px) {
-                    .table-cell {
-                        display: table-cell;
-                        padding: 1rem 1.5rem;
-                    }
-                }
-                
-                .table-cell.item-name {
-                    color: #1F2937;
-                }
-                
-                .table-cell.item-details {
-                    color: #6B7280;
-                }
-                
-                .table-cell.item-amount {
-                    text-align: right;
-                    font-weight: 700;
-                    font-size: 1.125rem;
-                    margin-top: 0.5rem;
-                }
-                
-                @media (min-width: 640px) {
-                    .table-cell.item-amount {
-                        font-weight: 400;
-                        font-size: 0.875rem;
-                        color: #1F2937;
-                        margin-top: 0;
-                    }
-                }
-                
-                .mobile-label {
-                    display: block;
-                    font-weight: 700;
-                    font-size: 0.75rem;
-                    text-transform: uppercase;
-                    color: #6B7280;
-                    margin-bottom: 0.125rem;
-                }
-                
-                @media (min-width: 640px) {
-                    .mobile-label {
-                        display: none;
-                    }
-                }
-                
-                .mobile-label.details-label {
-                    margin-top: 0.5rem;
-                }
-                
-                .total-section {
-                    margin-top: 1.5rem;
-                }
-                
-                .total-container {
-                    display: flex;
-                    justify-content: space-between;
-                    align-items: center;
-                    background-color: #F9FAFB;
-                    padding: 1rem;
-                    border: 2px solid #E5E7EB;
-                }
-                
-                .total-label {
-                    font-size: 1.125rem;
-                    font-weight: 700;
-                    color: #183e63;
-                }
-                
-                .total-amount {
-                    font-size: 1.875rem;
-                    font-weight: 800;
-                    color: #183e63;
-                }
-                
-                .total-period {
-                    font-size: 1.125rem;
-                }
-                
-                .hidden {
-                    display: none;
-                }
-                
-                .note-text {
-                    font-weight: bold;
-                    margin-bottom: -1rem;
+                /* Base / all screen sizes */
+                :host{display:block}
+                *{margin:0;padding:0;box-sizing:border-box}
+
+                .calculator-container{display:flex;flex-direction:column;gap:2rem}
+
+                .card{
+                background-color:#fff;
+                padding:1.5rem;
+                box-shadow:0 10px 15px -3px rgba(0,0,0,.1),0 4px 6px -2px rgba(0,0,0,.05);
+                border:1px solid #E5E7EB;
                 }
 
-                ul{
-                margin-left: 20px;
-                margin-bottom: 0px;
+                .section-header{
+                font-size:1.25rem;
+                font-weight:700;
+                color:#183e63;
+                border-bottom:1px solid #E5E7EB;
+                padding-bottom:.5rem;
+                margin-bottom:1rem;
                 }
-                .calculator-container {
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
-}
 
-/* Desktop only: inputs left, outputs right */
-@media (min-width: 1024px) {
-  .calculator-container {
-    flex-direction: row;
-    align-items: stretch;
-  }
+                .form-section{display:flex;flex-direction:column;gap:1.5rem}
+                .customer-class-container{display:flex;flex-direction:column;gap:1.5rem}
 
-  /* Ensure both columns size nicely and don’t overflow */
-  .calculator-container > div {
-    flex: 1 1 0;
-    min-width: 0;
-  }
+                .form-group{display:flex;flex-direction:column}
+                .form-label{
+                display:block;
+                font-size:.875rem;
+                font-weight:500;
+                color:#374151;
+                margin-bottom:.25rem;
+                }
 
-  /* Optional: make the left (inputs) column a fixed-ish width */
-  .calculator-container > div:first-child {
-    flex: 0 0 420px; /* adjust or remove if you want 50/50 */
+                .input-style{
+                width:100%;
+                padding:.75rem;
+                border:1px solid #D1D5DB;
+                transition:all .2s;
+                font-size:1rem;
+                background-color:#fff;
+                font-family:inherit;
+                }
+                .input-style:focus{
+                outline:none;
+                border-color:#183e63;
+                box-shadow:0 0 0 2px rgba(24,62,99,.2);
+                }
 
-  }
+                .input-hint{font-size:.75rem;color:#6B7280;margin-top:.25rem}
 
-  .calculator-container > div:last-child {
-    flex: 1 1 auto;
-  }
+                .usage-grid{display:flex;flex-direction:column;gap:1.5rem}
 
-    .calculator-container > div > .card {
-    display: flex;
-    flex-direction: column;
-  }
-}
+                .additional-charges{
+                display:flex;
+                flex-direction:column;
+                gap:.5rem;
+                padding-top:.5rem;
+                border-top:1px solid #E5E7EB;
+                }
+                .additional-charges-label{font-size:.875rem;font-weight:500;color:#374151}
 
+                .checkbox-group{display:flex;align-items:center;gap:.5rem}
+                .checkbox-input{height:1rem;width:1rem;cursor:pointer}
+                .checkbox-label{font-size:.875rem;font-weight:500;color:#374151;cursor:pointer}
 
-            </style>
+                .calculate-button{
+                width:100%;
+                margin-top:2rem;
+                padding:.75rem 1rem;
+                background-color:#1f3d7a;
+                color:#fff;
+                font-weight:700;
+                box-shadow:0 4px 6px -1px rgba(0,0,0,.1);
+                transition:background-color .2s;
+                border:none;
+                cursor:pointer;
+                font-size:1rem;
+                font-family:inherit;
+                }
+                .calculate-button:hover{background-color:rgb(24,49,98)}
+
+                #yearTabs{
+                display:flex;
+                flex-direction:column;
+                background-color:#fff;
+                border-bottom:1px solid #E5E7EB;
+                overflow:hidden;
+                }
+
+                .tab{
+                flex:1;
+                text-align:center;
+                padding:.5rem .75rem;
+                cursor:pointer;
+                transition:background-color .2s,color .2s;
+                border-bottom:3px solid transparent;
+                font-weight:600;
+                color:#6B7280;
+                border:.5px solid #E5E7EB;
+                }
+                .tab:hover{background-color:#F3F4F6}
+                .tab.active{
+                color:#183e63;
+                border-color:#BFDBFE;
+                background-color:#EFF6FF;
+                }
+                .tab-year{font-size:.875rem}
+                .tab-amount{font-size:1.125rem;font-weight:800}
+                .tab-period{font-size:.875rem;font-weight:400}
+
+                .results-card{border-top:none}
+
+                .input-summary{
+                margin-bottom:1.5rem;
+                padding:1rem;
+                background-color:#F9FAFB;
+                border:1px solid #E5E7EB;
+                }
+                .summary-title{font-size:.875rem;font-weight:700;color:#183e63}
+                .summary-details{font-size:.75rem;color:#374151}
+                .summary-charges{font-size:.75rem;color:#374151;margin-top:.25rem}
+
+                .status-positive{color:#10B981;font-weight:500}
+                .status-negative{color:#EF4444;font-weight:500}
+
+                .detailed-results{display:flex;flex-direction:column;gap:.75rem}
+                .no-results-message{text-align:center;color:#6B7280}
+
+                .allocation-box{
+                margin-bottom:1.5rem;
+                padding:.75rem;
+                background-color:#EFF6FF;
+                border:1px solid #BFDBFE;
+                }
+                .allocation-title{font-size:.875rem;font-weight:700;color:#183e63}
+                .allocation-details{font-size:.75rem;color:#374151;margin-top:.25rem}
+
+                .table-container{
+                box-shadow:0 1px 3px 0 rgba(0,0,0,.1);
+                overflow-x:auto;
+                border-bottom:1px solid #E5E7EB;
+                }
+                .breakdown-table{width:100%;border-collapse:collapse;background-color:#fff}
+
+                .table-header{background-color:#F9FAFB;display:none}
+                .table-header th{
+                padding:.75rem 1.5rem;
+                text-align:left;
+                font-size:.75rem;
+                font-weight:500;
+                color:#6B7280;
+                text-transform:uppercase;
+                letter-spacing:.05em;
+                }
+                .table-header th:last-child{text-align:right}
+
+                .table-body{background-color:#fff}
+
+                .table-row{
+                display:flex;
+                flex-direction:column;
+                border-top:1px solid #E5E7EB;
+                padding:1rem;
+                }
+
+                .table-cell{display:block;font-size:.875rem}
+                .table-cell.item-name{color:#1F2937}
+                .table-cell.item-details{color:#6B7280}
+                .table-cell.item-amount{
+                text-align:right;
+                font-weight:700;
+                font-size:1.125rem;
+                margin-top:.5rem;
+                }
+
+                .mobile-label{
+                display:block;
+                font-weight:700;
+                font-size:.75rem;
+                text-transform:uppercase;
+                color:#6B7280;
+                margin-bottom:.125rem;
+                }
+                .mobile-label.details-label{margin-top:.5rem}
+
+                .total-section{margin-top:1.5rem}
+                .total-container{
+                display:flex;
+                flex-direction:column;
+                align-items:flex-start;
+                gap:.5rem;
+                background-color:#F9FAFB;
+                padding:1rem;
+                border:2px solid #E5E7EB;
+                }
+                .total-label{font-size:1.125rem;font-weight:700;color:#183e63}
+                .total-amount{font-size:1.875rem;font-weight:800;color:#183e63}
+                .total-period{font-size:1.125rem}
+
+                .hidden{display:none}
+
+                .note-text{font-weight:700;margin-bottom:-1rem}
+
+                ul{margin-left:20px;margin-bottom:0}
+
+                /* >= 640px (sm) */
+                @media (min-width:640px){
+                .card{padding:2rem}
+                #yearTabs{flex-direction:row;justify-content:flex-start;border:none}
+                .table-header{display:table-header-group}
+                .table-row{display:table-row;border-top:none;padding:0}
+                .table-cell{display:table-cell;padding:1rem 1.5rem}
+                .table-cell.item-amount{
+                    font-weight:400;
+                    font-size:.875rem;
+                    color:#1F2937;
+                    margin-top:0;
+                }
+                .mobile-label{display:none}
+                .total-container{
+                    flex-direction:row;
+                    justify-content:space-between;
+                    align-items:center;
+                    gap:0;
+                }
+                }
+
+                /* >= 768px (md) */
+                @media (min-width:768px){
+                .tab{border:1px solid #E5E7EB}
+                }
+
+                /* >= 1024px (lg) */
+                @media (min-width:1024px){
+                .customer-class-container{flex-direction:row;gap:1rem}
+                .customer-class-container>div{flex:1}
+
+                .usage-grid{
+                    display:grid;
+                    grid-template-columns:repeat(2,1fr);
+                    gap:1rem;
+                }
+
+                /* Desktop only: inputs left, outputs right */
+                .calculator-container{flex-direction:row;align-items:stretch}
+                .calculator-container>div{flex:1 1 0;min-width:0}
+                .calculator-container>div:first-child{flex:0 0 420px}
+                .calculator-container>div:last-child{flex:1 1 auto}
+                .calculator-container>div>.card{display:flex;flex-direction:column}
+                }
+                </style>
+
         `;
     }
     
